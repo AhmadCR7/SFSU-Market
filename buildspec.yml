@@ -14,15 +14,12 @@ phases:
       - apt install --no-install-recommends yarn
   pre_build:
     commands:
-      - cd application/client
       # install dependencies
-      - echo Installing Deps...
-      - yarn
+      - cd application/client && yarn
   build:
     commands:
       # build
-      - echo Building...
-      - yarn build
+      - cd application/client && yarn build
 artifacts:
   files:
     - '**/*'
