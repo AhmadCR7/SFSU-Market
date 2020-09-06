@@ -15,13 +15,13 @@ phases:
   pre_build:
     commands:
       # install dependencies
-      - yarn
+      - cd application/client && yarn
   build:
     commands:
       # build
-      - yarn build
+      - cd application/client && yarn build
 artifacts:
   files:
     - '**/*'
   discard-paths: no
-  base-directory: build
+  base-directory: application/client/build
