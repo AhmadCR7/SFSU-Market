@@ -19,7 +19,7 @@ phases:
   build:
     commands:
       # build
-      - cd application/client && yarn build
+      - yarn build
 artifacts:
   files:
     - '**/*'
