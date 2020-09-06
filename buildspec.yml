@@ -14,7 +14,7 @@ phases:
       - apt install --no-install-recommends yarn
   pre_build:
     commands:
-      - cd application/client
+      - cd /application/client
       # install dependencies
       - echo ~~~~~~ Installing Deps ~~~~~~
       - yarn
