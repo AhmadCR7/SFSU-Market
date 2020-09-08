@@ -20,11 +20,35 @@ const App = () => {
               Ahmad
             </Link>
           </div>
+          <div>
+            <Link to="/nickgreensf" class="button">
+              Nicholas
+            </Link>
+          </div>
+          <div>
+            <Link to="/laurenlukee" class="button">
+              Lauren
+            </Link>
+          </div>
+          <div>
+            <Link to="/stevenmchenry01" class="button">
+              Steven
+            </Link>
+          </div>
+          <div>
+            <Link to="/WaqasHassan7" class="button">
+              Waqas
+            </Link>
+          </div>
         </div>
 
         <Switch>
-          <Route path="/ahmadcr7" component={AhmadApp} />
           <Route path="/home" component={Homepage}></Route>
+          <Route path="/ahmadcr7" component={AhmadApp} />
+          <Route path="/nickgreensf" />
+          <Route path="/laurenlukee" />
+          <Route path="/stevenmchenry01" />
+          <Route path="//WaqasHassan7" />
         </Switch>
       </div>
     </BrowserRouter>
