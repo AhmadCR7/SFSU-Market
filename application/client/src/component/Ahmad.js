@@ -1,7 +1,7 @@
 import React from "react";
 
 const AhmadApp = () => {
-  return <p>About me AHMAD</p>;
+  return <h4>About me AHMAD</h4>;
 };
 
 export default AhmadApp;
