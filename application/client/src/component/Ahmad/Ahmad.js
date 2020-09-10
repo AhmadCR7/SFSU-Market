@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./Ahmad.css";
-import "../images/Ahmad.jpg";
 
 class AhmadApp extends Component {
   render() {
@@ -28,7 +27,7 @@ class AhmadApp extends Component {
             </ul>
           </div>
           <div className="col-2">
-            <img className="profile" src={require("../images/Ahmad.jpg")}></img>
+            <img className="profile" src={require("../../images/Ahmad.jpg")}></img>
           </div>
         </div>
       </div>
