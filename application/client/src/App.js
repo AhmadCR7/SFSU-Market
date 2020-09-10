@@ -2,6 +2,7 @@ import React from "react";
 import AhmadApp from "./component/Ahmad";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Homepage from "./component/Homepage";
+
 const App = () => {
   console.log("Rendering App");
 
