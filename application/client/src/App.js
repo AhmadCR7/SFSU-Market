@@ -50,7 +50,7 @@ const App = () => {
           <Route path='/nickgreensf' />
           <Route path='/laurenlukee' />
           <Route path='/stevenmchenry01' component={StevenPage} />
-          <Route path='//WaqasHassan7' />
+          <Route path='//WaqasHassan7' component={WaqasBio} />
         </Switch>
       </div>
     </BrowserRouter>
