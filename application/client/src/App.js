@@ -2,6 +2,7 @@ import React from "react";
 import AhmadApp from "./component/Ahmad";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Homepage from "./component/Homepage";
+import NickApp from "./component/Nick";
 const App = () => {
   console.log("Rendering App");
 
@@ -22,7 +23,7 @@ const App = () => {
           </div>
           <div>
             <Link to="/nickgreensf" class="button">
-              Nicholas
+              Nick
             </Link>
           </div>
           <div>
@@ -45,7 +46,7 @@ const App = () => {
         <Switch>
           <Route path="/home" component={Homepage}></Route>
           <Route path="/ahmadcr7" component={AhmadApp} />
-          <Route path="/nickgreensf" />
+          <Route path="/nickgreensf" component={NickApp}/>
           <Route path="/laurenlukee" />
           <Route path="/stevenmchenry01" />
           <Route path="//WaqasHassan7" />
