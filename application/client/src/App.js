@@ -46,12 +46,14 @@ const App = () => {
         </div>
 
         <Switch>
+
           <Route path="/home" component={Homepage}></Route>
           <Route path="/ahmadcr7" component={AhmadApp} />
           <Route path="/nickgreensf" component={NickApp}/>
           <Route path="/laurenlukee" />
           <Route path="/stevenmchenry01" component={StevenPage}/>
           <Route path="//WaqasHassan7" />
+
         </Switch>
       </div>
     </BrowserRouter>
