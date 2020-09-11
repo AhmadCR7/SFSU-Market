@@ -3,6 +3,7 @@ import AhmadApp from './component/Ahmad/Ahmad'
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import Homepage from './component/Homepage'
 import StevenPage from './component/Steven/StevenPage'
+import LaurenPage from './component/Lauren/LaurenPage'
 
 const App = () => {
   console.log('Rendering App')
@@ -48,7 +49,7 @@ const App = () => {
           <Route path='/home' component={Homepage}></Route>
           <Route path='/ahmadcr7' component={AhmadApp} />
           <Route path='/nickgreensf' />
-          <Route path='/laurenlukee' />
+          <Route path='/laurenlukee' component={LaurenPage} />
           <Route path='/stevenmchenry01' component={StevenPage} />
           <Route path='//WaqasHassan7' />
         </Switch>
