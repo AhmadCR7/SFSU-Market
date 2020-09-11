@@ -1,7 +1,8 @@
-import React from 'react'
-import AhmadApp from './component/Ahmad/Ahmad'
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
-import Homepage from './component/Homepage'
+import React from "react";
+import AhmadApp from "./component/Ahmad/Ahmad";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import Homepage from "./component/Homepage";
+import NickApp from "./component/Nick/Nick";
 import StevenPage from './component/Steven/StevenPage'
 
 const App = () => {
@@ -45,12 +46,14 @@ const App = () => {
         </div>
 
         <Switch>
-          <Route path='/home' component={Homepage}></Route>
-          <Route path='/ahmadcr7' component={AhmadApp} />
-          <Route path='/nickgreensf' />
-          <Route path='/laurenlukee' />
-          <Route path='/stevenmchenry01' component={StevenPage} />
-          <Route path='//WaqasHassan7' component={WaqasBio} />
+
+          <Route path="/home" component={Homepage}></Route>
+          <Route path="/ahmadcr7" component={AhmadApp} />
+          <Route path="/nickgreensf" component={NickApp}/>
+          <Route path="/laurenlukee" />
+          <Route path="/stevenmchenry01" component={StevenPage}/>
+          <Route path="//WaqasHassan7" />
+
         </Switch>
       </div>
     </BrowserRouter>
