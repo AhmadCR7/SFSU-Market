@@ -8,15 +8,27 @@
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
 1. Server URL or IP
+    54.235.67.188
 2. SSH username
+    ubuntu
 3. SSH password or key.
-    <br> If a ssh key is used please upload the key to the credentials folder.
+    .pem will be in credentials folder
 4. Database URL or IP and port used.
-    <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
+    127.0.0.1:3306
 5. Database username
+    root
 6. Database password
+    passwordforteam3648
 7. Database name (basically the name that contains all your tables)
+    team3_648
 8. Instructions on how to use the above information.
+    1. open myql workbench
+    2. in upper tab go to >Database >Connect to Database
+    3. fill out information according to above or provided screenshot
+        NOTE: you must type in the password instead of pasting it in
+        ![Screenshot for database ssh](./screenshots/database_ssh.png)
+    4. attach the .pem file as the ssh key the is located in credential folder
+    5. connect
 
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>
