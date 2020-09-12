@@ -1,0 +1,15 @@
+.profile {
+  width: 300px;
+  border-radius: 50%;
+}
+.col-8 {
+  float: left;
+}
+.col-2 {
+  float: right;
+}
+
+.title-container {
+  height: 20vh;
+  text-align: center;
+}
