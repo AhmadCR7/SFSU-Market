@@ -12,11 +12,12 @@ const StevenPage = () => {
           <h2>Hello!</h2>
           <p>
             My name is Steven McHenry and I am graduating this Fall. I like
-            webdev stuff 😎
+            webdev stuff <span role='img' aria-label='cool emoji'>😎</span>
           </p>
         </div>
         <div className='col-2'>
           <img
+            alt='headshot'
             className='profile'
             src={require('../../images/Steven.png')}
           ></img>
