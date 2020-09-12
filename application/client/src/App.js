@@ -1,10 +1,11 @@
-import React from "react";
-import AhmadApp from "./component/Ahmad/Ahmad";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Homepage from "./component/Homepage";
-import NickApp from "./component/Nick/Nick";
+import React from 'react'
+import AhmadApp from './component/Ahmad/Ahmad'
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import Homepage from './component/Homepage'
+import NickApp from './component/Nick/Nick'
 import StevenPage from './component/Steven/StevenPage'
 import LaurenPage from './component/Lauren/LaurenPage'
+import Waqas from './component/Waqas/Waqas'
 
 const App = () => {
   console.log('Rendering App')
@@ -49,10 +50,10 @@ const App = () => {
         <Switch>
           <Route path='/home' component={Homepage}></Route>
           <Route path='/ahmadcr7' component={AhmadApp} />
-          <Route path="/nickgreensf" component={NickApp}/>
+          <Route path='/nickgreensf' component={NickApp} />
           <Route path='/laurenlukee' component={LaurenPage} />
           <Route path='/stevenmchenry01' component={StevenPage} />
-          <Route path='//WaqasHassan7' />
+          <Route path='/WaqasHassan7' component={Waqas} />
         </Switch>
       </div>
     </BrowserRouter>

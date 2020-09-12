@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import "./Ahmad.css";
+import React, { Component } from 'react'
+import './Ahmad.css'
 
 class AhmadApp extends Component {
   render() {
     return (
       <div>
-        <div className="title-container">
+        <div className='title-container'>
           <h1>Welcome To My Page</h1>
         </div>
-        <div className="container">
-          <div className="col-8">
+        <div className='container'>
+          <div className='col-8'>
             <h2>Hello!</h2>
             <p>
               My name is Ahmad, I am a Computer Science student at SFSU. This is
@@ -26,13 +26,17 @@ class AhmadApp extends Component {
               <li>CSC 675</li>
             </ul>
           </div>
-          <div className="col-2">
-            <img className="profile" src={require("../../images/Ahmad.jpg")}></img>
+          <div className='col-2'>
+            <img
+              alt='headshot'
+              className='profile'
+              src={require('../../images/Ahmad.jpg')}
+            ></img>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default AhmadApp;
+export default AhmadApp
