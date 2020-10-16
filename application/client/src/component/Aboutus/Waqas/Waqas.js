@@ -6,7 +6,7 @@ class WaqasBio extends Component {
     return (
       <div>
         <div className="title-container">
-          <h1>Welcome To My Page</h1>
+         
         </div>
         <div className="container">
           <div className="col-8">

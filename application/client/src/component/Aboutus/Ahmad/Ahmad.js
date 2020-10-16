@@ -6,7 +6,7 @@ class AhmadApp extends Component {
     return (
       <div>
         <div className="title-container">
-          <h1>Welcome To My Page</h1>
+         
         </div>
         <div className="container">
           <div className="col-8">
@@ -17,7 +17,7 @@ class AhmadApp extends Component {
               with other CS students. Looking forward to work and learn in CSC
               648 class.
             </p>
-            <h3>Classes I have taken</h3>
+         
           </div>
           <div className="col-2">
             <img
