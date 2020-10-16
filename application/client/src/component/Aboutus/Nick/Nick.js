@@ -8,7 +8,7 @@ const NickApp = () => {
       <img
         alt='headshot'
         className='profile'
-        src={require('../../images/Nick.PNG')}
+        src={require('../../../images/Nick.PNG')}
       ></img>
       <h2>
         Hi, I'm Nick Green. I am the team leader. I am a fourth year CS student

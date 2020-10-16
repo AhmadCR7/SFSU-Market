@@ -17,7 +17,7 @@ class WaqasBio extends Component {
             </p>
           </div>
           <div className="col-2">
-            <img alt='headshot' className="profile" src={require("../../images/Waqas.jpg")}></img>
+            <img alt='headshot' className="profile" src={require("../../../images/Waqas.jpg")}></img>
           </div>
         </div>
       </div>

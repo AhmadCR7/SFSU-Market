@@ -19,7 +19,7 @@ const StevenPage = () => {
           <img
             alt='headshot'
             className='profile'
-            src={require('../../images/Steven.png')}
+            src={require('../../../images/Steven.png')}
           ></img>
         </div>
       </div>
