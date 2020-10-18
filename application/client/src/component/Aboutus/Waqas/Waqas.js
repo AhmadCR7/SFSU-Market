@@ -6,7 +6,7 @@ class WaqasBio extends Component {
     return (
       <div>
         <div className="title-container">
-          <h1>Welcome To My Page</h1>
+         
         </div>
         <div className="container">
           <div className="col-8">
@@ -17,7 +17,7 @@ class WaqasBio extends Component {
             </p>
           </div>
           <div className="col-2">
-            <img alt='headshot' className="profile" src={require("../../images/Waqas.jpg")}></img>
+            <img alt='headshot' className="profile" src={require("../../../images/Waqas.jpg")}></img>
           </div>
         </div>
       </div>

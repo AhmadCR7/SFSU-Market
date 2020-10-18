@@ -1,26 +1,25 @@
 import React from 'react'
-import './LaurenPage.css'
+import './StevenPage.css'
 
-const LaurenPage = () => {
+const StevenPage = () => {
   return (
     <div>
       <div className='title-container'>
-        <h1>Welcome To My Page</h1>
+   
       </div>
       <div className='container'>
         <div className='col-8'>
           <h2>Hello!</h2>
           <p>
-            My name is Lauren Luke and I am a Computer Science major. This is my
-            last year at SFSU and I am on track to graduate spring 2021. An
-            interesting fact about me is I have an identical twin.
+            My name is Steven McHenry and I am graduating this Fall. I like
+            webdev stuff <span role='img' aria-label='cool emoji'>😎</span>
           </p>
         </div>
         <div className='col-2'>
           <img
             alt='headshot'
             className='profile'
-            src={require('../../images/Lauren.png')}
+            src={require('../../../images/Steven.png')}
           ></img>
         </div>
       </div>
@@ -28,4 +27,4 @@ const LaurenPage = () => {
   )
 }
 
-export default LaurenPage
+export default StevenPage
