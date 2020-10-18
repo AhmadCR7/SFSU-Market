@@ -1,41 +1,31 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Aboutuspage from "./component/Aboutus/Aboutus";
-import Navigation from "./component/Navigation"
+import Navigation from "./component/Navbar/Navigation.js"
+import Homepage from "./component/Homepage/Homepage"
+import Login from './component/Login/Login'
+import Signup from "./component/Signup/Signup";
 
-const App = () => {
+
+function App() {
   console.log("Rendering App");
 
   return (
     <BrowserRouter>
       <div class="App">
-      <Navigation/>
+        <Navigation />
 
-      
-        <div>
-        <p>
-      <center>
-        <h1>Welcome To Software Engineering Class SFSU </h1>
-        <h2>CSC 648 TEAM 3 Homepage</h2>
-      </center>
-     </p>
-
-
-    
-
-
-
-
-     
-          
-        </div>
 
         <Switch>
+          <Route path="/" exact component={Homepage} />
+          <Route path="/login" exact component={Login} />
           <Route path="/aboutus" component={Aboutuspage} />
+          <Route path="/signup" component={Signup} />
         </Switch>
       </div>
     </BrowserRouter>
   );
 };
+
 
 export default App;

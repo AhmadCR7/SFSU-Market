@@ -7,13 +7,14 @@ import StevenPage from "../Aboutus/Steven/StevenPage";
 import LaurenPage from "../Aboutus/Lauren/LaurenPage";
 import Waqas from "../Aboutus/Waqas/Waqas";
 
+
 import "./Aboutus.css";
-import Navigation from "../Navigation";
+
 
 const Aboutuspage = () => {
   return (
     <BrowserRouter>
-    
+
       <div class="App">
         <div>
           <div>
