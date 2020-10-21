@@ -1,9 +1,16 @@
+// load either dev or prod env file
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
+
 // 3rd party imports
-import express from 'express'
-import path from 'path'
-import cookieParser from 'cookie-parser'
-import logger from 'morgan'
-import indexRouter from './routes/index'
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+
+// my imports
+const db = require('./config/connectDb.js')
+const indexRouter = require('./routes/index')
+const categoryRouter = require('./routes/category')
 
 const app = express()
 
@@ -14,8 +21,14 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../../client/build')))
 
-// routes
+// test db connection
+db.authenticate()
+  .then(() => console.log(`connected to database`))
+  .catch((e) => console.error(e))
+
+// ~ ROUTES
 app.use('/api', indexRouter)
+app.use('/api/category', categoryRouter)
 
 // server frontend app
 app.use((req, res) => {
@@ -24,4 +37,4 @@ app.use((req, res) => {
   )
 })
 
-export default app
+module.exports = app
