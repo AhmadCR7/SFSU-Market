@@ -16,9 +16,10 @@ class Navigation extends Component {
   render() {
     return (
       <div>
+
         <Nav>
           <NavLink to='/'>
-            <h3>SFSU Market</h3>
+            <h2>SFSU Market</h2>
           </NavLink>
           <Bars />
           <NavDropdown
@@ -65,19 +66,25 @@ class Navigation extends Component {
           <Form
             className="form-center"
             inline
-            style={{ width: "35rem" }}
+            style={{
+              width: "35rem",
+            }}
             onSubmit={this.onSearch}
           >
             <FormControl
               type="text"
               placeholder="Search..."
               className="mr-sm-2"
-              style={{ margin: "auto auto%", width: "70%" }}
+              style={{
+                margin: "auto auto%", width: "70%",
+
+              }}
               onChange={e => {
-                this.setState({ queries: e.target.value });
+                this.setState({ queries: e.target.value })
+                  ;
               }}
             />
-            <Button variant="outline-info" type="submit">
+            <Button variant="outline-info" type="submit" style={{}}>
               Search
               </Button>
           </Form>

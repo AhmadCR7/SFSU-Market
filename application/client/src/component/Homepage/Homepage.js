@@ -1,15 +1,19 @@
 
-import React, { Component } from 'react';
+import React, { } from 'react';
+
+import "./Homepage.css"
 
 const Homepage = () => {
     return (
-        <div>
-            <p>
-                <center>
-                    <h1>Software Engineering Class SFSU </h1>
-                    <h2>CSC 648 TEAM 3 </h2>
-                </center>
-            </p>
+        <div >
+
+            <div className="home">
+                <h1>SFSU Software Engineering </h1>
+                <h2>Fall 2020 CSC 648 TEAM 3 </h2>
+            </div>
+
+
+
         </div>
     )
 }
