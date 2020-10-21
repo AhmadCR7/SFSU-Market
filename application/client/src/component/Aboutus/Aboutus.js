@@ -15,30 +15,30 @@ const Aboutuspage = () => {
   return (
     <BrowserRouter>
 
-      <div class="App">
+      <div className="App">
         <div>
           <div>
-            <Link to="/ahmadcr7" class="button">
+            <Link to="/ahmadcr7" className="button">
               Ahmad
             </Link>
           </div>
           <div>
-            <Link to="/nickgreensf" class="button">
+            <Link to="/nickgreensf" className="button">
               Nicholas
             </Link>
           </div>
           <div>
-            <Link to="/laurenlukee" class="button">
+            <Link to="/laurenlukee" className="button">
               Lauren
             </Link>
           </div>
           <div>
-            <Link to="/stevenmchenry01" class="button">
+            <Link to="/stevenmchenry01" className="button">
               Steven
             </Link>
           </div>
           <div>
-            <Link to="/WaqasHassan7" class="button">
+            <Link to="/WaqasHassan7" className="button">
               Waqas
             </Link>
           </div>

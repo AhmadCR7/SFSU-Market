@@ -82,10 +82,10 @@ class Navigation extends Component {
               </Button>
           </Form>
           <NavMenu>
-            <NavLink to='/aboutus' activeStyle>
+            <NavLink to='/aboutus' activeStyle={{color: 'black'}}>
               About
           </NavLink>
-            <NavLink to='/messages' activeStyle>
+            <NavLink to='/messages' activeStyle={{color: 'black'}}>
               Messages
           </NavLink>
           </NavMenu>
