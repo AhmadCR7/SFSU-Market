@@ -8,9 +8,10 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
 // my imports
-const db = require('./config/connectDb.js')
+const sequelize = require('./database/connectDb.js')
 const indexRouter = require('./routes/index')
 const categoryRouter = require('./routes/category')
+const listingRouter = require('./routes/listing')
 
 const app = express()
 
@@ -22,13 +23,14 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../../client/build')))
 
 // test db connection
-db.authenticate()
+sequelize.authenticate()
   .then(() => console.log(`connected to database`))
   .catch((e) => console.error(e))
 
 // ~ ROUTES
 app.use('/api', indexRouter)
 app.use('/api/category', categoryRouter)
+app.use('/api/listing', listingRouter)
 
 // server frontend app
 app.use((req, res) => {
