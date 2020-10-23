@@ -2,21 +2,49 @@ const { models } = require('../database/connectDb')
 const Sequelize = require('sequelize')
 
 export const getListings = (req, res) => {
-  if (req.body.searchQuery && req.body.category) {
-    const categoryName = req.body.category
+  const category = req.query.category
+
+  // search with a query
+  if (req.query.searchQuery) {
+    const search = req.query.searchQuery
+    // search with JUST a query.
+    if (category === 'all') {
+      models.listing
+        .findAll({
+          where: {
+            title: { [Sequelize.Op.substring]: search },
+          },
+        })
+        .then((listings) => {
+          res.send({
+            data: listings,
+            errors: null,
+          })
+        })
+        .catch((e) => {
+          res.send({
+            data: null,
+            errors: [
+              `Error finding listings with the search parameter of: ${search}`,
+            ],
+          })
+        })
+      return
+    }
+
+    let categoryId
+    // search with query and category selected
     models.category
       .findOne({
         where: {
-          name: categoryName,
+          name: category,
         },
       })
       .then((category) => {
-        return category.id
-      })
-      .then((categoryId) => {
+        categoryId = category.id
         return models.listing.findAll({
           where: {
-            title: { [Sequelize.Op.substring]: req.body.searchQuery },
+            title: { [Sequelize.Op.substring]: req.query.searchQuery },
             categoryId,
           },
         })
@@ -36,37 +64,9 @@ export const getListings = (req, res) => {
     return
   }
 
-  if (req.body.category) {
-    const categoryName = req.body.category
-    models.category
-      .findOne({
-        where: {
-          name: categoryName,
-        },
-      })
-      .then((category) => {
-        return category.id
-      })
-      .then((categoryId) => {
-        return models.listing.findAll({ where: { categoryId: categoryId } })
-      })
-      .then((listings) => {
-        res.send({
-          data: listings,
-          errors: null,
-        })
-      })
-      .catch((e) => {
-        res.send({
-          data: null,
-          errors: ['Error fetching listing of specified category'],
-        })
-      })
-    return
-  }
-
-  // get all listings
-  models.listing
+  // search with just a category
+  if(category === 'all') {
+    models.listing
     .findAll()
     .then((listings) => {
       res.send({
@@ -80,6 +80,32 @@ export const getListings = (req, res) => {
         errors: ['Error fetching all listings'],
       })
     })
-
-  return
+    return
+  } else {
+    models.category
+      .findOne({
+        where: {
+          name: category,
+        },
+      })
+      .then((category) => {
+        return category.id
+      })
+      .then((categoryId) => {
+        return models.listing.findAll({ where: { categoryId } })
+      })
+      .then((listings) => {
+        res.send({
+          data: listings,
+          errors: null,
+        })
+      })
+      .catch((e) => {
+        res.send({
+          data: null,
+          errors: [`Error fetching all listings of category: ${category}`],
+        })
+      })
+    return
+  }
 }
