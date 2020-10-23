@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Aboutuspage from "./component/Aboutus/Aboutus";
-import Navigation from "./component/Navbar/Navigation.js"
-import Homepage from "./component/Homepage/Homepage"
-import Login from './component/Login/Login'
-import Signup from "./component/Signup/Signup";
-import Test from './component/Test/Test'
-
+import Aboutuspage from "./pages/Aboutus/Aboutus";
+import Navbar from "./component/Navbar/Navbar.js"
+import Homepage from "./pages/Homepage/Homepage"
+import Login from './pages/Login/Login'
+import Signup from "./pages/Signup/Signup";
+import Listings from "./pages/Lisitngs/Listings";
 
 function App() {
   console.log("Rendering App");
@@ -14,13 +13,13 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Navigation />
+        <Navbar />
         <Switch>
           <Route path="/" exact component={Homepage} />
           <Route path="/login" exact component={Login} />
           <Route path="/aboutus" component={Aboutuspage} />
-          <Route path="/signup" component={Signup} />
-          <Route path='/test' component={Test} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/listings" component={Listings}/>
         </Switch>
       </div>
     </BrowserRouter>
