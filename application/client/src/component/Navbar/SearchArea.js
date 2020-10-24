@@ -39,8 +39,8 @@ const SearchArea = (props) => {
             books
           </NavDropdown.Item>
 
-          <NavDropdown.Item onClick={() => setCategory('clothes')}>
-            clothes
+          <NavDropdown.Item onClick={() => setCategory('clothing')}>
+            clothing
           </NavDropdown.Item>
 
           <NavDropdown.Item onClick={() => setCategory('electronics')}>
