@@ -1,8 +1,8 @@
 const express = require('express')
-const { getAllCategories } = require('../controllers/category')
+const { getListings} = require('../controllers/listing')
 const router = express.Router()
 
 // ~ GET all categories
-router.get('/getAll', getAllCategories)
+router.get('/getListings', getListings)
 
 module.exports = router
