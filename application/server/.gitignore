@@ -1,0 +1,6 @@
+package-lock.json
+yarn.lock
+/dist-server
+/node_modules
+.env.development
+.env.production
