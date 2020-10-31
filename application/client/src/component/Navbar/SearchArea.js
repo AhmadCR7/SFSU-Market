@@ -19,7 +19,7 @@ const SearchArea = (props) => {
     history.push({
       pathname: '/listings/',
       search: `?category=${category}&searchQuery=${search}`,
-      state: {category, searchQuery: search}
+      state: { category, searchQuery: search },
     })
   }
 
