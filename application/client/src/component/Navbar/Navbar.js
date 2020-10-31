@@ -13,9 +13,9 @@ import logo from '../../images/logo.png'
 const Navbar = () => {
   return (
     <div>
-      <Nav style={{background: '#7e9efb'}}>
+      <Nav style={{ background: '#7e9efb' }}>
         <NavLink to='/'>
-          <img style={{width: '200px'}} src={logo} alt='logo'/>
+          <img style={{ width: '200px' }} src={logo} alt='logo' />
         </NavLink>
         <Bars />
         <SearchArea />

@@ -32,5 +32,3 @@ const Listing = ({ title, price, description }) => {
 }
 
 export default Listing
-
-// STYLING<div>
