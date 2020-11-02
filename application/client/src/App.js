@@ -6,6 +6,8 @@ import Homepage from "./pages/Homepage/Homepage"
 import Login from './pages/Login/Login'
 import Signup from "./pages/Signup/Signup";
 import Listings from "./pages/Lisitngs/Listings";
+import admin_dashboard from "./pages/admin_dashboard/admin_dashboard";
+
 
 function App() {
   console.log("Rendering App");
@@ -20,6 +22,8 @@ function App() {
           <Route path="/aboutus" component={Aboutuspage} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/listings" component={Listings}/>
+          <Route path="/admin_dashboard" component={admin_dashboard}/>
+
         </Switch>
       </div>
     </BrowserRouter>
