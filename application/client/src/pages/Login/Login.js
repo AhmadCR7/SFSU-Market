@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { setUser, setPassword, setIsLoggedIn, setLoadingState } from '../../Redux/actions/userActions';
 import { Redirect } from 'react-router-dom';
 import "./login.css"
-import { Button } from "react-bootstrap";
+
 
 const Login = ({
     user,
@@ -16,7 +16,7 @@ const Login = ({
         dispatch(setLoadingState('loading'));
         setTimeout(() => { // network call would be here (axios or fetch)
             // fake doing something on the server
-            if (user === 'Ahmad' && password === '123') {
+            if (user === 'ahmad' && password === '123') {
                 dispatch(setIsLoggedIn(true));
                 dispatch(setLoadingState('init'));
             } else {
@@ -34,33 +34,43 @@ const Login = ({
     }
 
     return (
-        <div className="col-lg-8 offset-lg-2">
-            <h2>Login</h2>
-            <form name='form'>
+        <div className="col-lg-4 offset-lg-4">
+
+            <form >
+                <h3>Login</h3>
                 <div className="form-group" >
-                    <input className="form-simple"
-                        type="text"
-                        placeholder="username"
-                        value={user}
-                        onChange={e => dispatch(setUser(e.target.value))}
 
-                    />
-                    <small id="usernameHelp" class="form-text text-muted">we are using mockdata data username is: Ahmad password is: 123</small>
+                    <div className="form-group">
+                        <label>Username</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="username" value={user}
+                            onChange={e => dispatch(setUser(e.target.value))}
+                        />
+                    </div>
                 </div>
-
                 <div className="form-group">
-                    <input
-                        type="password"
-
-                        placeholder="password"
-                        value={password}
-                        onChange={e => dispatch(setPassword(e.target.value))}
-                    />
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Enter password"
+                            value={password}
+                            onChange={e => dispatch(setPassword(e.target.value))} />
+                    </div>
 
                 </div>
                 <div>
                     {loadingState === 'error' && <b>User name or password incorrect</b>}
-                    <Button onClick={logIn}>Log in</Button>
+                    <button
+                        type="submit"
+                        className="btn btn-primary btn-block"
+                        onClick={logIn}>Sign Up</button>
+                    <p className="forgot-password text-right">
+                        username: ahmad password: 123
+                </p>
                 </div>
             </form>
 
