@@ -4,8 +4,9 @@ import Aboutuspage from './pages/Aboutus/Aboutus'
 import Navbar from './component/Navbar/Navbar'
 import Homepage from './pages/Homepage/Homepage'
 import Login from './pages/Login/Login'
-import Signup from './pages/Signup/Signup'
-import Listings from './pages/Lisitngs/Listings'
+import Signup from "./pages/Signup/Signup"
+import Listings from "./pages/Lisitngs/Listings"
+import Dashboard from "./pages/Dashboard/Dashboard"
 import Listing1 from './pages/Listing1/Listing1'
 import CreateListing from './pages/CreateListing/CreateListing'
 
@@ -25,13 +26,12 @@ function App() {
           <Route path='/listings' component={Listings} />
           <Route path='/createlisting' component={CreateListing}/>
           <Route path="/listing1" component={Listing1}/>
-
+          <Route path="/dashboard" exact component={Dashboard}/>
         </Switch>
       </div>
     </BrowserRouter>
   )
 }
-
 
 
 export default App;

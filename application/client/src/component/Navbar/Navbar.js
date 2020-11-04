@@ -23,8 +23,8 @@ const Navbar = () => {
           <NavLink to='/aboutus' activeStyle={{ color: 'black' }}>
             About
           </NavLink>
-          <NavLink to='/messages' activeStyle={{ color: 'black' }}>
-            Messages
+          <NavLink to='/dashboard' activeStyle={{ color: 'black' }}>
+            Dashboard
           </NavLink>
         </NavMenu>
         <NavBtn>
