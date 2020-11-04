@@ -23,7 +23,8 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../../client/build')))
 
 // test db connection
-sequelize.authenticate()
+sequelize
+  .authenticate()
   .then(() => console.log(`connected to database`))
   .catch((e) => console.error(e))
 
