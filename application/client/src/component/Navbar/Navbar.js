@@ -15,7 +15,7 @@ const Navbar = () => {
     <div>
       <Nav style={{ background: '#7e9efb' }}>
         <NavLink to='/'>
-          <img style={{ width: '200px' }} src={logo} alt='logo' />
+          <img style={{width: '125px'}} src={logo} alt='logo'/>
         </NavLink>
         <Bars />
         <SearchArea />
@@ -23,8 +23,11 @@ const Navbar = () => {
           <NavLink to='/aboutus' activeStyle={{ color: 'black' }}>
             About
           </NavLink>
-          <NavLink to='/dashboard' activeStyle={{ color: 'black' }}>
-            Dashboard
+          <NavLink to='/admin_dashboard' activeStyle={{ color: 'black' }}>
+            Admin
+          </NavLink>
+          <NavLink to='/messages' activeStyle={{ color: 'black' }}>
+            Messages
           </NavLink>
         </NavMenu>
         <NavBtn>
