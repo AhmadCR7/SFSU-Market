@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage/Homepage"
 import Login from './pages/Login/Login'
 import Signup from "./pages/Signup/Signup";
 import Listings from "./pages/Lisitngs/Listings";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
   console.log("Rendering App");
@@ -20,11 +21,12 @@ function App() {
           <Route path="/aboutus" component={Aboutuspage} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/listings" component={Listings}/>
+          <Route path="/dashboard" exact component={Dashboard}/>
         </Switch>
       </div>
     </BrowserRouter>
   );
-};
+}
 
 
 export default App;
