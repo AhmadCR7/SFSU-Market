@@ -17,6 +17,7 @@ function App() {
       <div className='App'>
         <Navbar />
         <Switch>
+
           <Route path='/' exact component={Homepage} />
           <Route path='/login' exact component={Login} />
           <Route path='/aboutus' component={Aboutuspage} />
@@ -24,10 +25,14 @@ function App() {
           <Route path='/listings' component={Listings} />
           <Route path='/createlisting' component={CreateListing}/>
           <Route path="/listing1" component={Listing1}/>
+
         </Switch>
       </div>
     </BrowserRouter>
   )
 }
 
-export default App
+
+
+export default App;
+
