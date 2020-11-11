@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import MyListings from '../Dashboard/MyListings/MyListings'
 import Messages from '../Dashboard/Messages/Messages'
+import CreateMessage from "../Dashboard/Messages/CreateMessage";
 
 
 const PageStyled = styled.div`
@@ -24,7 +25,9 @@ const Dashboard = () => {
 
     const components = {
         MyListings: MyListings,
-        Messages: Messages
+        Messages: Messages,
+        CreateMessage: CreateMessage
+
 
     }
     const PageToRender = components[value]
@@ -34,7 +37,8 @@ const Dashboard = () => {
         <PageStyled>
             <ButtonsContainer>
                 <Button onClick={()=>setValue('MyListings')}>My Listings</Button>
-                <Button onClick={()=>setValue('Messages')}>Messages</Button>
+                <Button onClick={()=>setValue('Messages')}>My Messages</Button>
+                <Button onClick={()=>setValue('CreateMessage')}>Create Message</Button>
             </ButtonsContainer>
             <MessageContainer>
                 <PageToRender />

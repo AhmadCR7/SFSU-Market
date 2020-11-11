@@ -1,42 +1,61 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form'
-import { Button } from 'react-bootstrap'
+import React, {useState} from 'react';
 import './Messages.css'
-import styled from 'styled-components'
+import Alert from 'react-bootstrap/Alert'
+import styled from "styled-components";
+import {Button} from "react-bootstrap";
 
 const PageStyled = styled.div`
   padding: 20px;
 `
 
 const Messages = () => {
-    return (
-        <PageStyled>
-            <div>
-                <div className='container'>
-                <div className='col-8'>
-            <Form>
-                <Form.Group controlId="messageForm.ControlInput1">
-                    <div className="a">  Create New Message </div>
-                    <Form.Label>Message User:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Name" />
-                </Form.Group>
-                <Form.Group controlId="messageForm.ControlInput2">
-                    <Form.Label>Subject:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Subject" />
-                </Form.Group>
-                <Form.Group controlId="messageForm.ControlTextarea1">
-                    <Form.Label>Write Message:</Form.Label>
-                    <Form.Control as="textarea" rows={5} />
-                </Form.Group>
-                <Button variant="primary" type="send">
-                    Send
-                </Button>
-            </Form>
-                </div>
-                </div>
-            </div>
-        </PageStyled>
-    )
+        const[visible, setVisible] = useState(true);
+
+                if(visible) {
+                    return (
+                        <PageStyled>
+                            <Alert onClose={() => setVisible(false)} dismissible>
+                                <p className="mb-0">
+                                    <h4 className="alert-heading"> From User: Lauren </h4>
+                                </p>
+                                <p>
+                                    Hi there! I am messaging about the calculus 2 listing.
+                                    I am very interested in purchasing. Please send me
+                                    details for payment thanks!
+                                </p>
+                                <Button variant="primary" type="submit">
+                                    Reply
+                                </Button>
+                            </Alert>
+                            <Alert onClose={() => setVisible(false)} dismissible>
+                                <p className="mb-0">
+                                    <h4 className="alert-heading"> From User: Steven </h4>
+                                </p>
+                                <p>
+                                    Hey! I am looking to purchase your couch I see it is
+                                    listed for sale. I can come pick it up today. Give
+                                    me a call (925) 123-4567.
+                                </p>
+                                <Button variant="primary" type="submit">
+                                    Reply
+                                </Button>
+                            </Alert>
+                            <Alert onClose={() => setVisible(false)} dismissible>
+                                <p className="mb-0">
+                                    <h4 className="alert-heading"> From User: Nick </h4>
+                                </p>
+                                <p>
+                                    I am interested in your tutoring listing. I am
+                                    looking for some help this week and next week.
+                                    What times are you available?
+                                </p>
+                                <Button variant="primary" type="submit">
+                                    Reply
+                                </Button>
+                            </Alert>
+                        </PageStyled>
+                    )
+                }
 }
 
 export default Messages
