@@ -35,7 +35,7 @@ const CreateListing = (props) => {
         alert("Your price is invalid. Please enter a number with two decimal places (ex: 12.20)")
         return
       }
-      console.log('too far')
+      //Here is where I would then put all the necessary information on the server.
   }
 
   return (
