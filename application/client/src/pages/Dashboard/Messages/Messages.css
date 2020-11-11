@@ -5,3 +5,10 @@ div.a {
     font-size: 25px;
     text-decoration: underline;
 }
+.alert {
+    padding:50px;
+    background-color: gainsboro;
+    color:black;
+
+}
+
