@@ -36,7 +36,7 @@ const Listings = (props) => {
   }
 
   return (
-    <div style={{display: 'flex', flexWrap: 'wrap'}}>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {data.map((listing) => {
         return (
           <Listing
