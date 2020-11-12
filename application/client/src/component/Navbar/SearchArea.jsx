@@ -6,7 +6,7 @@ import { useQueryCache } from 'react-query'
 
 // My imports
 
-const SearchArea = (props) => {
+const SearchArea = () => {
   const [category, setCategory] = useState('all')
   const [search, setSearch] = useState(null)
   const queryCache = useQueryCache()
@@ -27,40 +27,30 @@ const SearchArea = (props) => {
     <div style={{ display: 'flex' }}>
       <div style={{ margin: 'auto 0' }}>
         <NavDropdown title={<span style={{ color: 'white' }}>{category}</span>}>
-          <NavDropdown.Item onClick={() => setCategory('all')}>
-            all
-          </NavDropdown.Item>
+          <NavDropdown.Item onClick={() => setCategory('all')}>all</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item onClick={() => setCategory('appliances')}>
-            appliances
-          </NavDropdown.Item>
+          <NavDropdown.Item onClick={() => setCategory('appliances')}>appliances</NavDropdown.Item>
 
-          <NavDropdown.Item onClick={() => setCategory('books')}>
-            books
-          </NavDropdown.Item>
+          <NavDropdown.Item onClick={() => setCategory('books')}>books</NavDropdown.Item>
 
-          <NavDropdown.Item onClick={() => setCategory('clothing')}>
-            clothing
-          </NavDropdown.Item>
+          <NavDropdown.Item onClick={() => setCategory('clothing')}>clothing</NavDropdown.Item>
 
           <NavDropdown.Item onClick={() => setCategory('electronics')}>
             electronics
           </NavDropdown.Item>
-          <NavDropdown.Item onClick={() => setCategory('services')}>
-            services
-          </NavDropdown.Item>
+          <NavDropdown.Item onClick={() => setCategory('services')}>services</NavDropdown.Item>
         </NavDropdown>
       </div>
       <Form
-        className='form-center'
+        className="form-center"
         inline
         style={{ width: '35rem' }}
         onSubmit={(e) => handleSearch(e)}
       >
         <FormControl
-          type='text'
-          placeholder='Search...'
-          className='mr-sm-2'
+          type="text"
+          placeholder="Search..."
+          className="mr-sm-2"
           style={{ margin: 'auto auto%', width: '70%' }}
           onChange={(e) => {
             setSearch(e.target.value)
@@ -68,8 +58,8 @@ const SearchArea = (props) => {
           value={search}
         />
         <Button
-          variant='outline-info'
-          type='submit'
+          variant="outline-info"
+          type="submit"
           style={{ color: 'white', borderColor: 'white' }}
         >
           Search
