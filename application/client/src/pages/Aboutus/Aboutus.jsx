@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
-import AhmadApp from '../Aboutus/Ahmad/Ahmad'
-import NickApp from '../Aboutus/Nick/Nick'
-import StevenPage from '../Aboutus/Steven/StevenPage'
-import LaurenPage from '../Aboutus/Lauren/LaurenPage'
-import Waqas from '../Aboutus/Waqas/Waqas'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Button } from 'react-bootstrap'
+import AhmadApp from './Ahmad/Ahmad'
+import NickApp from './Nick/Nick'
+import StevenPage from './Steven/StevenPage'
+import LaurenPage from './Lauren/LaurenPage'
+import Waqas from './Waqas/Waqas'
 
 import './Aboutus.css'
-import { Button } from 'react-bootstrap'
 
 const PageStyled = styled.div`
   padding: 20px;
@@ -35,18 +35,18 @@ const Aboutuspage = () => {
     ahmad: AhmadApp,
     nick: NickApp,
     lauren: LaurenPage,
-    waqas: Waqas
+    waqas: Waqas,
   }
   const PageToRender = components[member]
 
   return (
     <PageStyled>
       <ButtonsContainer>
-        <Button onClick={()=>setMember('ahmad')}>Ahmad</Button>
-        <Button onClick={()=>setMember('nick')}>Nicholas</Button>
-        <Button onClick={()=>setMember('lauren')}>Lauren</Button>
-        <Button onClick={()=>setMember('steven')}>Steven</Button>
-        <Button onClick={()=>setMember('waqas')}>Waqas</Button>
+        <Button onClick={() => setMember('ahmad')}>Ahmad</Button>
+        <Button onClick={() => setMember('nick')}>Nicholas</Button>
+        <Button onClick={() => setMember('lauren')}>Lauren</Button>
+        <Button onClick={() => setMember('steven')}>Steven</Button>
+        <Button onClick={() => setMember('waqas')}>Waqas</Button>
       </ButtonsContainer>
       <MemberContainer>
         <PageToRender />
@@ -55,4 +55,3 @@ const Aboutuspage = () => {
   )
 }
 export default Aboutuspage
-

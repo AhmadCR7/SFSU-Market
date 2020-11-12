@@ -2,7 +2,6 @@
 import React from 'react'
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
 import Listing from '../../component/listing/Listing'
 
 // My imports
@@ -18,12 +17,9 @@ const fetchListings = async (key, { category, searchQuery }) => {
   return res.data.data
 }
 
-const Listings = (props) => {
-  const { category, searchQuery } = props.location.state
-  const { data, status } = useQuery(
-    ['listings', { category, searchQuery }],
-    fetchListings
-  )
+const Listings = ({ location }) => {
+  const { category, searchQuery } = location.state
+  const { data, status } = useQuery(['listings', { category, searchQuery }], fetchListings)
 
   console.log(data)
 
@@ -37,15 +33,9 @@ const Listings = (props) => {
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      {data.map((listing) => {
-        return (
-          <Listing
-            title={listing.title}
-            price={listing.price}
-            description={listing.description}
-          />
-        )
-      })}
+      {data.map((listing) => (
+        <Listing title={listing.title} price={listing.price} description={listing.description} />
+      ))}
     </div>
   )
 }

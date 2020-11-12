@@ -1,24 +1,51 @@
 module.exports = {
+  env: {
+    browser: true,
+    es6: true,
+  },
   extends: [
-    'airbnb', // Uses the recommended rules from airbnb
-    'airbnb/hooks',
-    'prettier',
-    'prettier/react',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'airbnb',
+    'plugin:json/recommended',
   ],
-  plugins: ['prettier', 'react-hooks'],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2020,
+    sourceType: 'module',
+  },
+  plugins: ['react'],
   rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-    'react/jsx-filename-extension': 'off',
+    'react/prop-types': 0,
+    'react/jsx-one-expression-per-line': 0,
+    'jsx-a11y/label-has-associated-control': 0,
+    'object-curly-newline': 0,
+    'func-names': 0,
+    'comma-dangle': 0,
+    'import/no-unresolved': 0,
+    'no-console': 0,
+    'react/react-in-jsx-scope': 0,
+    semi: 0,
+    'prefer-const': [
+      'error',
+      {
+        destructuring: 'all',
+      },
+    ],
     'prettier/prettier': [
       'error',
       {
+        tabWidth: 2,
+        semi: false,
         trailingComma: 'es5',
         singleQuote: true,
-        semi: false,
-        printWidth: 80,
-        // below line only for windows users facing CLRF and eslint/prettier error
-        // non windows users feel free to delete it
+        printWidth: 100,
         endOfLine: 'auto',
       },
     ],
