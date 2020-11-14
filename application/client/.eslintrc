@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "wesbos",
+    "plugin:json/recommended"
+  ],
+  "rules": {
+    "jsx-a11y/label-has-associated-control": 0,
+    "import/no-unresolved": 0,
+    "react/prop-types": 0,
+    "no-console": 0,
+    "no-alert": 1,
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 100,
+        "endOfLine":"auto",
+        "semi": false,
+        "tabWidth": 2
+      }
+    ]
+  }
+}
