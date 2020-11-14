@@ -18,8 +18,8 @@ const Navbar = () => (
         <NavLink to="/admin_dashboard" activeStyle={{ color: 'black' }}>
           Admin
         </NavLink>
-        <NavLink to="/messages" activeStyle={{ color: 'black' }}>
-          Messages
+        <NavLink to="/dashboard" activeStyle={{ color: 'black' }}>
+          Dashboard
         </NavLink>
       </NavMenu>
       <NavBtn>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
-import MyListings from './MyListings/MyListings'
-import Messages from './Messages/Messages'
-import CreateMessage from './Messages/CreateMessage'
+import MyListings from '../../component/MyListings/MyListings'
+import Messages from '../../component/Messages/Messages'
+import CreateMessage from '../../component/Messages/CreateMessage'
 
 const PageStyled = styled.div`
   padding: 20px;
