@@ -1,77 +1,49 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
-import {
-  setUser,
-  setPassword,
-  setIsLoggedIn,
-  setLoadingState,
-} from '../../Redux/actions/userActions'
+import { useForm } from 'react-hook-form'
 import './login.css'
 
-const Login = ({ user, password, isLoggedIn, loadingState, dispatch }) => {
-  const logIn = () => {
-    dispatch(setLoadingState('loading'))
-    setTimeout(() => {
-      // network call would be here (axios or fetch)
-      // fake doing something on the server
-      if (user === 'ahmad' && password === '123') {
-        dispatch(setIsLoggedIn(true))
-        dispatch(setLoadingState('init'))
-      } else {
-        dispatch(setLoadingState('error'))
-      }
-    }, 2000)
-  }
-
-  if (isLoggedIn) {
-    return <Redirect to="/" />
-  }
-
-  if (loadingState === 'loading') {
-    return <h2>Loading...</h2>
-  }
+const LoginForm = () => {
+  const { register, handleSubmit, errors } = useForm({ criteriaMode: 'all' })
+  const onSubmit = (data) => console.log(data)
 
   return (
     <div className="col-lg-4 offset-lg-4">
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h3>Login</h3>
         <div className="form-group">
-          <label>Username</label>
+          <label>SFSU Email</label>
           <input
-            type="text"
+            type="email"
+            name="email"
             className="form-control"
-            placeholder="username"
-            value={user}
-            onChange={(e) => dispatch(setUser(e.target.value))}
+            placeholder="SFSU email"
+            ref={register({
+              required: true,
+            })}
           />
+          {errors?.email?.types?.required && <p>SFSU email required</p>}
         </div>
         <div className="form-group">
           <label>Password</label>
           <input
             type="password"
+            name="password"
             className="form-control"
             placeholder="Enter password"
-            value={password}
-            onChange={(e) => dispatch(setPassword(e.target.value))}
+            ref={register({ required: true, minLength: 8 })}
           />
+
+          {errors?.password?.types?.required && <p>password required</p>}
+          {errors?.password?.types?.minLength && <p>password has to be 8 or more character</p>}
         </div>
         <div>
-          {loadingState === 'error' && <b>User name or password incorrect</b>}
-          <button type="submit" className="btn btn-primary btn-block" onClick={logIn}>
+          <button type="submit" className="btn btn-primary btn-block">
             Sign Up
           </button>
-          <p className="forgot-password text-right">username: ahmad password: 123</p>
         </div>
       </form>
     </div>
   )
 }
 
-const mapStateToProps = (state) => ({
-  user: state.userReducer.user,
-  password: state.userReducer.password,
-  isLoggedIn: state.userReducer.isLoggedIn,
-  loadingState: state.userReducer.loadingState,
-})
-export default connect(mapStateToProps)(Login)
+export default LoginForm
