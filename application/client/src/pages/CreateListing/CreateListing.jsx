@@ -45,8 +45,9 @@ const CreateListing = () => {
           </Form.Label>
           <Form.Control
             style={{ width: '70%' }}
+
             type="title"
-            placeholder="Enter title"
+               placeholder="Enter title"
             onChange={(e) => setTitle(e.target.value)}
           />
         </Form.Group>

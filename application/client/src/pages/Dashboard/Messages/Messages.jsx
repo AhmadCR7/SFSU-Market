@@ -28,7 +28,7 @@ const Messages = () => {
         </Alert>
         <Alert onClose={() => setVisible(false)} dismissible>
           <p className="mb-0">
-            <h4 className="alert-heading"> From User: Steven </h4>
+            <h4 className="alert-heading">From User: Steven </h4>
           </p>
           <p>
             Hey! I am looking to purchase your couch I see it is listed for sale. I can come pick it
@@ -46,7 +46,7 @@ const Messages = () => {
             I am interested in your tutoring listing. I am looking for some help this week and next
             week. What times are you available?
           </p>
-          <Button variant="primary" type="submit">
+          <Button varian t="primary" type="submit">
             Reply
           </Button>
         </Alert>
