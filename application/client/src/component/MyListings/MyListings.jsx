@@ -2,7 +2,7 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
-import laurenImage from '../../../images/Lauren.png'
+import laurenImage from '../../images/Lauren.png'
 
 const PageStyled = styled.div`
   padding: 50px;
@@ -59,7 +59,9 @@ const MyListings = () => (
         </thead>
         <tbody>
           <tr>
-            <td alt="headshot" className="profile" src={laurenImage} />
+            <td>
+              <img alt="headshot" className="profile" src={laurenImage} />
+            </td>
             <td>
               <h4> Description: </h4>
               Used couch for sale. Approximately two years old. Black in color. Available for pick
