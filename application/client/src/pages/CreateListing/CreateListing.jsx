@@ -1,107 +1,95 @@
-// 3rd party imports
+/* eslint-disable react/button-has-type */
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
 
 const CreateListing = () => {
-  const [price, setPrice] = useState('')
-  const [title, setTitle] = useState('')
-  const [setCategory] = useState('appliances')
-  const [description, setDescription] = useState('')
-  // setPrice("99.99")
-
-  const handleSearch = (e) => {
-    e.preventDefault()
-    // var good = true
-    // Description can be at most 200 characters, title at most 40 characters,
-    // price has to be all numbers,
-    // except for a decimal point which is followed by two numbers
-    // There doesn't have to be an image, so that's fine.
-    const priceregex = /^\d+(?:\.\d{2})$/
-    // This regular expression is based on one from https://stackoverflow.com/questions/2227370/currency-validation
-    if (title.length > 40) {
-      alert('Your title is too long. Please enter one under 40 characters long.')
-      return
-    }
-    if (title.length === 0) {
-      alert('Please title your post.')
-      return
-    }
-    if (description.length > 1000) {
-      alert('Your description is too long. Please enter one under 1000 characters long.')
-    }
-    if (!priceregex.test(price)) {
-      alert('Your price is invalid. Please enter a number with two decimal places (ex: 12.20)')
-    }
-    // Here is where I would then put all the necessary information on the server.
-  }
-
+  const { register, handleSubmit, errors } = useForm({ criteriaMode: 'all' })
+  const { category, setCategory } = useState('appliances')
+  const onSubmit = (data) => console.log(data)
   return (
-    <div style={{ marginLeft: '10px' }}>
-      <Form onSubmit={(e) => handleSearch(e)}>
-        <div style={{ fontSize: '2em' }}>Create Listing</div>
-        <Form.Group as={Form.Row} controlId="listingTitle">
-          <Form.Label column sm={1}>
-            Title:{' '}
-          </Form.Label>
-          <Form.Control
-            style={{ width: '70%' }}
-
-            type="title"
-               placeholder="Enter title"
-            onChange={(e) => setTitle(e.target.value)}
+    <div className="col-lg-4 offset-lg-4">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <h3>Create Listing</h3>
+        <div className="form-group">
+          <label>Title</label>
+          <input
+            name="title"
+            className="form-control"
+            placeholder="Enter title"
+            ref={register({
+              required: 'Please title your post',
+              minLength: {
+                value: 8,
+                message: 'Your title is too short',
+              },
+              maxLength: {
+                value: 40,
+                message: 'Your title is too long.',
+              },
+            })}
           />
-        </Form.Group>
-        <Form.Group as={Form.Row} controlId="buttons">
-          <Form.Label column sm={1}>
-            Image:{' '}
-          </Form.Label>
-          <Form.Group>
-            <Form.File id="image" />
-          </Form.Group>
-        </Form.Group>
-        <Form.Group as={Form.Row} controlId="listingDescription">
-          <Form.Label column sm={1}>
-            Description:
-          </Form.Label>
+          {errors.title && <p>{errors.title.message}</p>}
+        </div>
+        <div className="form-group">
+          <label>Image: </label>
+          <div>
+            <input type="file" id="img" name="img" accept="image/*" />
+          </div>
+        </div>
+        <div className="form-group">
+          <label>Description</label>
           <Form.Control
             as="textarea"
-            rows={3}
-            style={{ width: '70%' }}
-            placeholder="Tell other users about your listing"
-            onChange={(e) => setDescription(e.target.value)}
+            className="form-control"
+            placeholder="Describe your post"
+            name="description"
+            ref={register({
+              maxLength: {
+                value: 400,
+                message: 'Your description is too long.',
+              },
+            })}
           />
-        </Form.Group>
-        <Form.Group as={Form.Row} controlId="listingCategory">
-          <Form.Label column sm={1}>
-            Category:{' '}
-          </Form.Label>
-          <Form.Control style={{ width: '10%' }} as="select">
+          {errors.description && <p>{errors.description.message}</p>}
+        </div>
+        <div className="form-group">
+          <label>Category {category}</label>
+          <Form.Control as="select" className="form-control" style={{ width: '70%' }}>
             <option onClick={() => setCategory('appliances')}>Appliances</option>
             <option onClick={() => setCategory('books')}>Books</option>
             <option onClick={() => setCategory('clothing')}>Clothing</option>
             <option onClick={() => setCategory('electronics')}>Electronics</option>
             <option onClick={() => setCategory('services')}>Services</option>
           </Form.Control>
-        </Form.Group>
-        <Form.Group as={Form.Row} controlId="listingPrice">
-          <Form.Label column sm={1}>
-            Price:{' '}
-          </Form.Label>
-          <Form.Control
-            style={{ width: '10%' }}
-            onChange={(e) => setPrice(e.target.value)}
-            type="price"
+        </div>
+        <div className="form-group">
+          <label>Price</label>
+          <input
+            style={{ width: '50%' }}
+            name="price"
+            className="form-control"
             placeholder="XXX.XX"
+            ref={register({
+              pattern: {
+                value: /^\d+(?:\.\d{2})$/,
+                message: 'Please enter a dollar value',
+              },
+            })}
           />
-          <Form.Text>Please enter a number of dollars, to two decimal places.</Form.Text>
-        </Form.Group>
-        <Form.Group as={Form.Row} controlId="buttons">
-          <Button variant="secondary" style={{ marginRight: '10px' }}>
-            Cancel
-          </Button>
-          <Button type="submit">Submit for approval</Button>
-        </Form.Group>
-      </Form>
+          {errors.price && <p>{errors.price.message}</p>}
+        </div>
+        <button
+          type="reset"
+          className="btn btn-primary btn-block"
+          style={{ backgroundColor: 'red' }}
+        >
+          Cancel
+        </button>
+        <button type="submit" className="btn btn-primary btn-block">
+          Submit for approval
+        </button>
+      </form>
     </div>
   )
 }
