@@ -34,7 +34,13 @@ const Listings = ({ location }) => {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {data.map((listing) => (
-        <Listing title={listing.title} price={listing.price} description={listing.description} />
+        <Listing
+          key={listing.id}
+          title={listing.title}
+          price={listing.price}
+          description={listing.description}
+          imageUrl={listing.listingImages[0].url}
+        />
       ))}
     </div>
   )

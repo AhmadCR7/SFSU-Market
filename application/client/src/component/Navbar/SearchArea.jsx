@@ -8,7 +8,7 @@ import { useQueryCache } from 'react-query'
 
 const SearchArea = () => {
   const [category, setCategory] = useState('all')
-  const [search, setSearch] = useState(null)
+  const [search, setSearch] = useState('')
   const queryCache = useQueryCache()
   const history = useHistory()
 
@@ -44,22 +44,29 @@ const SearchArea = () => {
       <Form
         className="form-center"
         inline
-        style={{ width: '35rem' }}
+        style={{ display: 'flex', flexWrap: 'nowrap' }}
         onSubmit={(e) => handleSearch(e)}
       >
-        <FormControl
-          type="text"
-          placeholder="Search..."
-          className="mr-sm-2"
-          style={{ margin: 'auto auto%', width: '70%' }}
-          onChange={(e) => {
-            setSearch(e.target.value)
-          }}
-          value={search}
-        />
+        <div>
+          <FormControl
+            type="text"
+            placeholder="Search..."
+            isInvalid={search.length > 40}
+            className="mr-sm-2"
+            style={{ margin: 'auto auto', width: '90%' }}
+            onChange={(e) => {
+              setSearch(e.target.value)
+            }}
+            value={search}
+          />
+          <Form.Control.Feedback type="invalid">
+            {search.length > 40 && 'cannot be longer than 40 characters'}
+          </Form.Control.Feedback>
+        </div>
         <Button
           variant="outline-info"
           type="submit"
+          disabled={search.length > 40}
           style={{ color: 'white', borderColor: 'white' }}
         >
           Search
