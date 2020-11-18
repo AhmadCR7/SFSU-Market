@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'www',
-      script: './dist-server/bin/www.js',
+      script: './dist/index.js',
       watch: true,
       env: {
         NODE_ENV: 'production',
