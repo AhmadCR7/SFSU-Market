@@ -21,8 +21,6 @@ const Listings = ({ location }) => {
   const { category, searchQuery } = location.state
   const { data, status } = useQuery(['listings', { category, searchQuery }], fetchListings)
 
-  console.log(data)
-
   if (status === 'loading') {
     return <div>loading</div>
   }

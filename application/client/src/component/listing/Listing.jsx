@@ -16,9 +16,11 @@ const Listing = ({ title, price, description, imageUrl }) => {
     displayDescription = `${description.slice(0, 50)}...`
   }
 
+  const imageThumbUrl = `${imageUrl.slice(0, imageUrl.length - 4)}-thumb.jpg`
+
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={imageUrl} />
+      <Card.Img variant="top" src={imageThumbUrl} />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{displayDescription}</Card.Text>
