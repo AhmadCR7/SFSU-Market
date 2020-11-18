@@ -18,7 +18,7 @@ const CreateListing = () => {
             className="form-control"
             placeholder="Enter title"
             ref={register({
-              required: 'Please title your post',
+              required: 'Please title your listing',
               minLength: {
                 value: 8,
                 message: 'Your title is too short',
@@ -71,6 +71,7 @@ const CreateListing = () => {
             className="form-control"
             placeholder="XXX.XX"
             ref={register({
+              required: 'Please price your listing',
               pattern: {
                 value: /^\d+(?:\.\d{2})$/,
                 message: 'Please enter a dollar value',
