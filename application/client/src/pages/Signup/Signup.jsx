@@ -19,10 +19,14 @@ const CreateForm = () => {
             className="form-control"
             placeholder="SFSU email"
             ref={register({
-              required: true,
+              required: 'Enter your SFSU email',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[sfsu]+\.[edu]{2,4}$/i,
+                message: 'Enter a SFSU email',
+              },
             })}
           />
-          {errors?.email?.types?.required && <p>SFSU email required</p>}
+          {errors.email && <p>{errors.email.message}</p>}
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -55,12 +59,22 @@ const CreateForm = () => {
 
           {errors.password_repeat && <p>{errors.password_repeat.message}</p>}
         </div>
+        <div>
+          <input
+            ref={register({ required: 'Please accept terms and conditions' })}
+            name="terms"
+            type="checkbox"
+          />
+          {errors.terms && <p>{errors.terms.message}</p>}
+
+          <a href="/"> I agree to the terms and conditions</a>
+        </div>
 
         <button type="submit" className="btn btn-primary btn-block">
           Sign Up
         </button>
         <p className="forgot-password text-right">
-          Already registered <a href="/login">sign in?</a>
+          Already Have Account? <a href="/login">Log In</a>
         </p>
       </form>
     </div>
