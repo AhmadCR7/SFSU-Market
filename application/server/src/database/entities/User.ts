@@ -10,7 +10,6 @@ import {
 import { Message } from './Message'
 
 @Entity()
-// extend allows base sql commands link find() and insert()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
@@ -23,6 +22,12 @@ export class User extends BaseEntity {
 
   @Column({ unique: true })
   email!: string
+
+  @Column({ type: 'boolean' })
+  admin!: boolean
+
+  @Column({ type: 'boolean' })
+  banned!: boolean
 
   @Column()
   password!: string

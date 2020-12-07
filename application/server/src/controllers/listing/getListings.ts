@@ -1,5 +1,5 @@
-import { Listing } from '../database/entities/Listing'
-import { Category } from '../database/entities/Category'
+import { Listing } from '../../database/entities/Listing'
+import { Category } from '../../database/entities/Category'
 import { Request, Response } from 'express'
 import { Like } from 'typeorm'
 

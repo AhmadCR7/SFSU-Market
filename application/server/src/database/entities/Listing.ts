@@ -32,6 +32,12 @@ export class Listing extends BaseEntity {
   description: string
 
   @Column()
+  verified!: boolean
+
+  @Column()
+  locked!: boolean
+
+  @Column()
   price: integer
 
   @Column()

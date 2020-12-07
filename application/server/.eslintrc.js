@@ -14,6 +14,8 @@ module.exports = {
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/no-empty-interface': 0,
+    '@typescript-eslint/prefer-namespace-keyword': 0,
+    '@typescript-eslint/no-namespace': 0,
     'no-debugger': 0,
     'no-alert': 0,
     'no-await-in-loop': 0,

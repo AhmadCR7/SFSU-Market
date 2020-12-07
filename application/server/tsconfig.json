@@ -35,6 +35,7 @@
     "./src/**/*.sql"
   ],
   "include": [
+    "*.d.ts",
     "./src/**/*.tsx",
     "./src/**/*.ts"
   ]
