@@ -13,7 +13,10 @@ import bodyParser from 'body-parser'
 // my imports
 import indexRouter from './routes/index'
 import listingRouter from './routes/listing'
+import messageRouter from './routes/message'
 import authRouter from './routes/auth'
+import classRouter from './routes/class'
+import categoryRouter from './routes/category'
 import { createNewConnection } from './database/connectTypeorm'
 import { sessionConfig } from './utils/sessionAndRedisConfig'
 
@@ -50,6 +53,9 @@ const main = async () => {
   app.use('/api', indexRouter)
   app.use('/api/listing', listingRouter)
   app.use('/api/auth', authRouter)
+  app.use('/api/message', messageRouter)
+  app.use('/api/class', classRouter)
+  app.use('/api/category', categoryRouter)
 
   // all other routes, serve frontend from client folder
   app.use((req, res) => {

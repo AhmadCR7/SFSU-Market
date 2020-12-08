@@ -12,6 +12,8 @@ import {
 import { Category } from './Category'
 import { Class } from './Class'
 import { ListingImage } from './ListingImage'
+import { Message } from './Message'
+import { User } from './User'
 
 @Entity()
 // extend allows base sql commands link find() and insert()
@@ -31,10 +33,10 @@ export class Listing extends BaseEntity {
   @Column({ type: 'text' })
   description: string
 
-  @Column()
+  @Column({ type: 'boolean', default: false })
   verified!: boolean
 
-  @Column()
+  @Column({ type: 'boolean', default: false })
   locked!: boolean
 
   @Column()
@@ -49,6 +51,12 @@ export class Listing extends BaseEntity {
   @ManyToOne(() => Class, (class_) => class_.listings, { eager: true })
   class: Class
 
+  @ManyToOne(() => User, (user) => user.listings, { eager: true })
+  poster!: User
+
   @OneToMany(() => ListingImage, (listingImage) => listingImage.listing, { eager: true })
   listingImages: ListingImage[]
+
+  @OneToMany(() => Message, (message) => message.listing)
+  messages: Message[]
 }

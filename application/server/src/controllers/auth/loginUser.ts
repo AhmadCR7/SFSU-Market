@@ -4,21 +4,16 @@ This file is meant to serve as the logic behind logging a user in
 import { Response } from 'express'
 import argon2 from 'argon2'
 import { User } from '../../database/entities/User'
-import { getConnection } from 'typeorm'
 import { CustomRequest } from '../../types/ExpressExtensions'
 
 export const loginUser = async (req: CustomRequest, res: Response) => {
-  // typeorm connection
-  const connection = getConnection()
-
   // make sure correct body data is present
   if (!req.body || !req.body.email || !req.body.password) {
     res.status(400)
-    res.send({
+    return res.send({
       user: null,
       errors: [{ title: 'register user', message: 'incorrect parameters given' }],
     })
-    return
   }
   const { email, password } = req.body
 
@@ -28,11 +23,10 @@ export const loginUser = async (req: CustomRequest, res: Response) => {
   // user was not found
   if (!user) {
     res.status(400)
-    res.send({
+    return res.send({
       user: null,
       errors: [{ title: 'login user', message: 'user does not exist' }],
     })
-    return
   }
 
   // make sure password is corrent
@@ -41,11 +35,10 @@ export const loginUser = async (req: CustomRequest, res: Response) => {
   // incorrect password used
   if (!validatedPassword) {
     res.status(400)
-    res.send({
+    return res.send({
       user: null,
       errors: [{ title: 'login user', message: 'incorrect password' }],
     })
-    return
   }
 
   // log in user via session
