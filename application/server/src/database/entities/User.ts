@@ -7,6 +7,7 @@ import {
   BaseEntity,
   OneToMany,
 } from 'typeorm'
+import { Listing } from './Listing'
 import { Message } from './Message'
 
 @Entity()
@@ -23,10 +24,10 @@ export class User extends BaseEntity {
   @Column({ unique: true })
   email!: string
 
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', default: false })
   admin!: boolean
 
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', default: false })
   banned!: boolean
 
   @Column()
@@ -37,4 +38,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Message, (message) => message.receiver)
   receivedMessages: Message[]
+
+  @OneToMany(() => Listing, (listing) => listing.poster)
+  listings: Listing[]
 }

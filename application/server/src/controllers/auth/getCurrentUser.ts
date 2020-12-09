@@ -10,11 +10,10 @@ export const getCurrentUser = async (req: CustomRequest, res: Response) => {
   if (req.session) {
     // check if user is logged in via session
     if (!req.session.userId) {
-      res.send({
+      return res.send({
         user: null,
         errors: [],
       })
-      return
     }
   }
   // user is logged in so return that users data

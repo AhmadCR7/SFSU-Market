@@ -14,18 +14,17 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
   // make sure correct body data is present
   if (!req.body || !req.body.email || !req.body.password) {
     res.status(400)
-    res.send({
+    return res.send({
       user: null,
       errors: [{ title: 'register user', message: 'incorrect parameters given' }],
     })
-    return
   }
   const { email, password } = req.body
 
   // make sure sfsu email is being used
   if (!email.includes('@sfsu.edu')) {
     res.status(400)
-    res.send({
+    return res.send({
       user: null,
       errors: [
         {
@@ -34,26 +33,23 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
         },
       ],
     })
-    return
   }
 
   // hash user password
   const hashedPassword = await argon2.hash(password)
 
-  let newUser: User
   // create user in database
+  let newUser: User
   try {
     newUser = new User()
     newUser.email = email
     newUser.password = hashedPassword // storing hashed password
-    newUser.admin = false
-    newUser.banned = false
     await connection.manager.save(newUser)
   } catch (e) {
     // user already exists
     if (e.message.includes('Duplicate')) {
       res.status(400)
-      res.send({
+      return res.send({
         user: null,
         errors: [
           {
@@ -62,11 +58,10 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
           },
         ],
       })
-      return
     }
     // fallback error message
-    res.status(400)
-    res.send({
+    res.status(500)
+    return res.send({
       user: null,
       errors: [
         {
@@ -75,7 +70,6 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
         },
       ],
     })
-    return
   }
 
   // log in user via session
