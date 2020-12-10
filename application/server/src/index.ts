@@ -57,10 +57,12 @@ const main = async () => {
   app.use('/api/class', classRouter)
   app.use('/api/category', categoryRouter)
 
-  // all other routes, serve frontend from client folder
-  app.use((req, res) => {
-    res.sendFile(path.resolve(__dirname, '../', '../', 'client', 'build', 'index.html'))
-  })
+  // all other routes, serve frontend from client folder in prod
+  if (process.env.NODE_ENV === 'production') {
+    app.use((req, res) => {
+      res.sendFile(path.resolve(__dirname, '../', '../', 'client', 'build', 'index.html'))
+    })
+  }
 
   // ~ LAUNCH
   app.listen(process.env.PORT, () => {
