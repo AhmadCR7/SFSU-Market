@@ -18,14 +18,23 @@ export const loginUser = async (req: CustomRequest, res: Response) => {
   const { email, password } = req.body
 
   // search for the user in database
-  const user: User = await User.findOne({ where: { email } })
-
-  // user was not found
-  if (!user) {
-    res.status(400)
+  let user: User
+  try {
+    user = await User.findOneOrFail({
+      where: { email },
+    })
+  } catch (e) {
+    if (e.message.includes('Could not find any entity')) {
+      res.status(400)
+      return res.send({
+        user: null,
+        errors: [{ title: 'login user', message: 'user does not exist' }],
+      })
+    }
+    res.status(500)
     return res.send({
       user: null,
-      errors: [{ title: 'login user', message: 'user does not exist' }],
+      errors: [{ title: 'login user', message: 'error logging in' }],
     })
   }
 
@@ -46,5 +55,8 @@ export const loginUser = async (req: CustomRequest, res: Response) => {
     req.session.userId = user.id
   }
 
-  res.send({ user: user, erorrs: [] })
+  res.send({
+    user: { email: user.email, admin: user.admin, banned: user.banned, id: user.id },
+    erorrs: [],
+  })
 }
