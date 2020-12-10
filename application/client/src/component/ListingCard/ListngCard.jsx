@@ -3,10 +3,25 @@ import React from 'react'
 import { Card, Button } from 'react-bootstrap'
 
 // My imports
+import './ListingCard.css'
+import placeholder from '../../images/placeholder-image.png'
 
-const Listing = ({ title, price, description, imageUrl }) => {
+const ListingCard = ({
+  categoryName,
+  description,
+  className,
+  datePosted,
+  id,
+  isbn,
+  listingImages,
+  locked,
+  price,
+  verified,
+  title,
+}) => {
   let dollars = price / 100
   let displayDescription = description
+  const thumbnailUrl = listingImages.length > 0 ? listingImages[0].url : placeholder
   dollars = dollars.toLocaleString('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -16,11 +31,9 @@ const Listing = ({ title, price, description, imageUrl }) => {
     displayDescription = `${description.slice(0, 50)}...`
   }
 
-  const imageThumbUrl = `${imageUrl.slice(0, imageUrl.length - 4)}-thumb.jpg`
-
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={imageThumbUrl} />
+      <Card.Img variant="top" src={thumbnailUrl} />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{displayDescription}</Card.Text>
@@ -31,4 +44,6 @@ const Listing = ({ title, price, description, imageUrl }) => {
   )
 }
 
-export default Listing
+export default ListingCard
+
+// STYLING
