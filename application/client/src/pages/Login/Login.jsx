@@ -18,10 +18,14 @@ const LoginForm = () => {
             className="form-control"
             placeholder="SFSU email"
             ref={register({
-              required: true,
+              required: 'Enter your SFSU email',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[sfsu]+\.[edu]{2,4}$/i,
+                message: 'Enter a SFSU email',
+              },
             })}
           />
-          {errors?.email?.types?.required && <p>SFSU email required</p>}
+          {errors.email && <p>{errors.email.message}</p>}
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -36,11 +40,15 @@ const LoginForm = () => {
           {errors?.password?.types?.required && <p>password required</p>}
           {errors?.password?.types?.minLength && <p>password has to be 8 or more character</p>}
         </div>
+
         <div>
           <button type="submit" className="btn btn-primary btn-block">
             Sign Up
           </button>
         </div>
+        <p className="forgot-password text-right">
+          <a href="/">Forgot Password?</a>
+        </p>
       </form>
     </div>
   )
