@@ -44,35 +44,37 @@ export const createListing = async (req: CustomRequest, res: Response) => {
   if (listingImageIds) {
   }
 
-  // get class from database to link with listing
   let linkingClass: Class
-  try {
-    linkingClass = await Class.findOne({ where: { number: classNumber } })
-    // incorrect class was supplied
-    if (!linkingClass) {
-      res.status(400)
+  if (classNumber) {
+    // get class from database to link with listing
+    try {
+      linkingClass = await Class.findOne({ where: { number: classNumber } })
+      // incorrect class was supplied
+      if (!linkingClass) {
+        res.status(400)
+        return res.send({
+          listing: null,
+          errors: [
+            {
+              title: 'create listing',
+              message: 'could not find an associated class for class with number ' + classNumber,
+            },
+          ],
+        })
+      }
+    } catch (e) {
+      console.error(e)
+      res.status(500)
       return res.send({
         listing: null,
         errors: [
           {
             title: 'create listing',
-            message: 'could not find an associated class for class with number ' + classNumber,
+            message: 'error when finding class',
           },
         ],
       })
     }
-  } catch (e) {
-    console.error(e)
-    res.status(500)
-    return res.send({
-      listing: null,
-      errors: [
-        {
-          title: 'create listing',
-          message: 'error when finding class',
-        },
-      ],
-    })
   }
 
   // get cateogory from database to link with listing

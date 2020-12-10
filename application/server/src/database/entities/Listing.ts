@@ -51,7 +51,7 @@ export class Listing extends BaseEntity {
   @ManyToOne(() => Class, (class_) => class_.listings, { eager: true })
   class: Class
 
-  @ManyToOne(() => User, (user) => user.listings, { eager: true })
+  @ManyToOne(() => User, (user) => user.listings)
   poster!: User
 
   @OneToMany(() => ListingImage, (listingImage) => listingImage.listing, { eager: true })

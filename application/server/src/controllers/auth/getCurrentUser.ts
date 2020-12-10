@@ -16,6 +16,21 @@ export const getCurrentUser = async (req: CustomRequest, res: Response) => {
       })
     }
   }
+
+  // get user from database
+  let user: User
+  try {
+    user = await User.findOne(req.session.userId)
+  } catch (e) {
+    res.status(500)
+    return res.send({
+      user: null,
+      errors: [{ title: 'get current user', message: 'error getting user.' }],
+    })
+  }
   // user is logged in so return that users data
-  res.send({ user: await User.findOne(req.session.userId), errors: [] })
+  res.send({
+    user: { email: user.email, admin: user.admin, banned: user.banned, id: user.id },
+    errors: [],
+  })
 }

@@ -77,5 +77,5 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
     req.session.userId = newUser.id
   }
 
-  res.send({ user: newUser, erorrs: [] })
+  res.send({ user: { email: newUser.email, id: newUser.id }, erorrs: [] })
 }
