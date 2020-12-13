@@ -1,12 +1,20 @@
 import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import './Signup.css'
+import axios from 'axios'
 
 const CreateForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({ criteriaMode: 'all' })
   const password = useRef({})
   password.current = watch('password', '')
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    console.log(data)
+    axios({
+      method: 'post',
+      url: '/api/auth/registerUser',
+      data,
+    }).then((res) => console.log(res))
+  }
   return (
     <div className="col-lg-4 offset-lg-4">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -21,7 +29,7 @@ const CreateForm = () => {
             ref={register({
               required: 'Enter your SFSU email',
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[sfsu]+\.[edu]{2,4}$/i,
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[edu]{2,4}$/i,
                 message: 'Enter a SFSU email',
               },
             })}

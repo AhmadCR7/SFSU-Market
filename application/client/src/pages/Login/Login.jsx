@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+
 import { useForm } from 'react-hook-form'
 import './login.css'
+import axios from 'axios'
 
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm({ criteriaMode: 'all' })
-  const onSubmit = (data) => console.log(data)
+
+  const onSubmit = (data) => {
+    console.log(data)
+    axios({
+      method: 'post',
+      url: '/api/auth/loginUser',
+      data,
+    }).then((res) => console.log(res))
+  }
 
   return (
     <div className="col-lg-4 offset-lg-4">
@@ -20,7 +30,7 @@ const LoginForm = () => {
             ref={register({
               required: 'Enter your SFSU email',
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[sfsu]+\.[edu]{2,4}$/i,
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[edu]{2,4}$/i,
                 message: 'Enter a SFSU email',
               },
             })}
