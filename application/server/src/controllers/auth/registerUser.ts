@@ -43,6 +43,8 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
   try {
     newUser = new User()
     newUser.email = email
+    newUser.banned = false
+    newUser.admin = false
     newUser.password = hashedPassword // storing hashed password
     await connection.manager.save(newUser)
   } catch (e) {

@@ -117,6 +117,8 @@ export const createListing = async (req: CustomRequest, res: Response) => {
     newListing.description = description
     newListing.price = price
     newListing.isbn = isbn
+    newListing.locked = false
+    newListing.verified = false
     newListing.category = linkingCategory
     newListing.class = linkingClass
     newListing.listingImages = linkingImages
