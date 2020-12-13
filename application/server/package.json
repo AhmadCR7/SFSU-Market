@@ -30,7 +30,7 @@
     "sequelize": "^6.3.5",
     "ts-node": "^9.0.0",
     "typeorm": "^0.2.29",
-    "uuid": "^8.3.1"
+    "uuid": "^8.3.2"
   },
   "babel": {
     "presets": [

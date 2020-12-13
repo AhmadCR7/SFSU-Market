@@ -39,7 +39,7 @@ const main = async () => {
 
   // ~ required middlewares
   // parse application/json
-  app.use(bodyParser.json())
+  app.use(bodyParser.json({ limit: 1000000 }))
   app.use(bodyParser.urlencoded({ extended: true }))
 
   // parse formData

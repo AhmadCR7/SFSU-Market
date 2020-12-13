@@ -22,7 +22,7 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
   const { email, password } = req.body
 
   // make sure sfsu email is being used
-  if (!email.includes('@sfsu.edu')) {
+  if (!email.includes('@sfsu.edu') || !email.includes('@mail.sfsu.edu')) {
     res.status(400)
     return res.send({
       user: null,
