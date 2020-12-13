@@ -19,10 +19,13 @@ export const createListing = async (req: CustomRequest, res: Response) => {
     })
   }
 
+  console.log(req.body)
+
   // get currently logged in user
   let user: User
   try {
-    user = await User.findOne(parseInt(req.session.userId))
+    // user = await User.findOne(parseInt(req.session.userId))
+    user = await User.findOne(1)
   } catch (e) {
     res.status(500)
     return res.send({

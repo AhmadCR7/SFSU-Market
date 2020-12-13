@@ -23,7 +23,6 @@ const Homepage = () => {
   return (
     <div style={{ padding: '2rem' }}>
       <h2 style={{ textAlign: 'center' }}>Recent Listings</h2>
-      <UploadImages />
       <div className="grid" style={{ margin: '2rem auto' }}>
         {data.data.listings.map((listing) => (
           <ListingCard
