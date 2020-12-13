@@ -24,10 +24,10 @@ export class User extends BaseEntity {
   @Column({ unique: true })
   email!: string
 
-  @Column({ type: 'boolean', default: false })
+  @Column({ type: 'boolean' })
   admin!: boolean
 
-  @Column({ type: 'boolean', default: false })
+  @Column({ type: 'boolean' })
   banned!: boolean
 
   @Column()

@@ -33,10 +33,10 @@ export class Listing extends BaseEntity {
   @Column({ type: 'text' })
   description: string
 
-  @Column({ type: 'boolean', default: false })
+  @Column({ type: 'boolean' })
   verified!: boolean
 
-  @Column({ type: 'boolean', default: false })
+  @Column({ type: 'boolean' })
   locked!: boolean
 
   @Column()

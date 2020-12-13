@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import ListingCard from '../../component/ListingCard/ListngCard'
+import { UploadImages } from '../../component/UploadImages/UploadImages'
 
 const fetchRecentListings = async () => {
   const res = await axios('/api/listing/getRecentListings')
@@ -19,11 +20,10 @@ const Homepage = () => {
     return <div>{error}</div>
   }
 
-  console.log(data)
-
   return (
     <div style={{ padding: '2rem' }}>
       <h2 style={{ textAlign: 'center' }}>Recent Listings</h2>
+      <UploadImages />
       <div className="grid" style={{ margin: '2rem auto' }}>
         {data.data.listings.map((listing) => (
           <ListingCard
