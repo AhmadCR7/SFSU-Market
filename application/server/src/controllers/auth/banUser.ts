@@ -15,7 +15,7 @@ export const banUser = async (req: CustomRequest, res: Response) => {
     res.status(400)
     return res.send({
       success: false,
-      errors: [{ title: 'ban user', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
   const { userId } = req.body
@@ -28,7 +28,7 @@ export const banUser = async (req: CustomRequest, res: Response) => {
     res.status(400)
     return res.send({
       success: false,
-      errors: [{ title: 'ban user', message: 'user does not exist' }],
+      errors: [{ field: 'id', message: 'user does not exist' }],
     })
   }
 
@@ -40,7 +40,7 @@ export const banUser = async (req: CustomRequest, res: Response) => {
     res.status(500)
     return res.send({
       success: false,
-      errors: [{ title: 'ban user', message: 'error deleting user' }],
+      errors: [{ field: 'all', message: 'error deleting user' }],
     })
   }
 

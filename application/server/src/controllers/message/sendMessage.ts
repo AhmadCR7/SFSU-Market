@@ -14,7 +14,7 @@ export const sendMessage = async (req: CustomRequest, res: Response) => {
     res.status(400)
     return res.send({
       listing: null,
-      errors: [{ title: 'send message', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
 
@@ -31,7 +31,7 @@ export const sendMessage = async (req: CustomRequest, res: Response) => {
       message: null,
       errors: [
         {
-          title: 'send message',
+          field: 'user',
           message: 'error finding sender.',
         },
       ],
@@ -47,7 +47,7 @@ export const sendMessage = async (req: CustomRequest, res: Response) => {
         message: null,
         errors: [
           {
-            title: 'send message',
+            field: 'user',
             message: 'could not find a user to send that message to.',
           },
         ],
@@ -59,7 +59,7 @@ export const sendMessage = async (req: CustomRequest, res: Response) => {
       message: null,
       errors: [
         {
-          title: 'send message',
+          field: 'user',
           message: 'error finding receiver',
         },
       ],
@@ -76,7 +76,7 @@ export const sendMessage = async (req: CustomRequest, res: Response) => {
         message: null,
         errors: [
           {
-            title: 'send message',
+            field: 'listing',
             message: 'could not find a listing associated with that message.',
           },
         ],
@@ -88,7 +88,7 @@ export const sendMessage = async (req: CustomRequest, res: Response) => {
       message: null,
       errors: [
         {
-          title: 'send message',
+          field: 'listing',
           message: 'error finding listing',
         },
       ],
@@ -110,7 +110,7 @@ export const sendMessage = async (req: CustomRequest, res: Response) => {
       message: null,
       errors: [
         {
-          title: 'send message',
+          field: 'all',
           message: 'error creating message',
         },
       ],

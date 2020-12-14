@@ -2,7 +2,6 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import ListingCard from '../../component/ListingCard/ListngCard'
-import { UploadImages } from '../../component/UploadImages/UploadImages'
 
 const fetchRecentListings = async () => {
   const res = await axios('/api/listing/getRecentListings')

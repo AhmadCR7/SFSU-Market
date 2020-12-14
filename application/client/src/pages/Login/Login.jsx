@@ -5,7 +5,7 @@ import './login.css'
 import axios from 'axios'
 
 const LoginForm = () => {
-  const { register, handleSubmit, errors } = useForm({ criteriaMode: 'all' })
+  const { register, handleSubmit, errors, setError } = useForm({ criteriaMode: 'all' })
   const history = useHistory()
 
   const onSubmit = (data) => {
@@ -14,12 +14,21 @@ const LoginForm = () => {
       method: 'post',
       url: '/api/auth/loginUser',
       data,
-    }).then((res) => {
-      console.log(res)
-      history.push({
-        pathname: '/',
-      })
     })
+      .then((res) => {
+        console.log(res.errors)
+        history.push({
+          pathname: '/',
+        })
+      })
+      .catch((e) => {
+        if (e.response.data.errors[0]) {
+          setError(e.response.data.errors[0].field, {
+            type: 'manual',
+            message: e.response.data.errors[0].message,
+          })
+        }
+      })
   }
 
   return (
@@ -41,7 +50,7 @@ const LoginForm = () => {
               },
             })}
           />
-          {errors.email && <p>{errors.email.message}</p>}
+          {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -50,20 +59,27 @@ const LoginForm = () => {
             name="password"
             className="form-control"
             placeholder="Enter password"
-            ref={register({ required: true, minLength: 8 })}
+            ref={register({
+              required: 'please enter a password',
+              minLength: {
+                value: 6,
+                message: 'password must be atleast 6 characters',
+              },
+            })}
           />
-
-          {errors?.password?.types?.required && <p>password required</p>}
-          {errors?.password?.types?.minLength && <p>password has to be 8 or more character</p>}
-        </div>
-
-        <div>
-          <button type="submit" className="btn btn-primary btn-block">
-            Sign Up
-          </button>
+          {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
         </div>
         <p className="forgot-password text-right">
           <a href="/">Forgot Password?</a>
+        </p>
+
+        <div>
+          <button type="submit" className="btn btn-primary btn-block">
+            Login
+          </button>
+        </div>
+        <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+          <a href="/signup">Don't have an account yet? Sign up!</a>
         </p>
       </form>
     </div>
