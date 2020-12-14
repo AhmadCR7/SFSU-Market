@@ -1,19 +1,35 @@
 import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router-dom'
 import './Signup.css'
 import axios from 'axios'
 
 const CreateForm = () => {
-  const { register, handleSubmit, errors, watch } = useForm({ criteriaMode: 'all' })
+  const { register, handleSubmit, errors, watch, setError } = useForm({ criteriaMode: 'all' })
   const password = useRef({})
   password.current = watch('password', '')
+  const history = useHistory()
   const onSubmit = (data) => {
     console.log(data)
     axios({
       method: 'post',
       url: '/api/auth/registerUser',
       data,
-    }).then((res) => console.log(res))
+    })
+      .then((res) => {
+        console.log(res)
+        history.push({
+          pathname: '/',
+        })
+      })
+      .catch((e) => {
+        if (e.response.data.errors[0]) {
+          setError(e.response.data.errors[0].field, {
+            type: 'manual',
+            message: e.response.data.errors[0].message,
+          })
+        }
+      })
   }
   return (
     <div className="col-lg-4 offset-lg-4">
@@ -64,7 +80,6 @@ const CreateForm = () => {
               validate: (value) => value === password.current || 'The passwords do not match',
             })}
           />
-
           {errors.password_repeat && <p>{errors.password_repeat.message}</p>}
         </div>
         <div>
@@ -74,16 +89,12 @@ const CreateForm = () => {
             type="checkbox"
           />
           {errors.terms && <p>{errors.terms.message}</p>}
-
           <a href="/"> I agree to the terms and conditions</a>
         </div>
 
         <button type="submit" className="btn btn-primary btn-block">
           Sign Up
         </button>
-        <p className="forgot-password text-right">
-          Already Have Account? <a href="/login">Log In</a>
-        </p>
       </form>
     </div>
   )
