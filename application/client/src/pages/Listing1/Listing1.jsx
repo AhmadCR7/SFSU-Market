@@ -9,8 +9,11 @@ import me from '../../images/Nick.PNG'
 
 const fetchListing = async (key, { lId }) => {
   const res = await Axios.get('/api/listing/getListing', {
-    listingId: lId,
+    params: {
+      listingId: 11,
+    },
   })
+  // console.log(res.data.listing)
   return res.data.listing
 }
 
@@ -28,10 +31,16 @@ const priceConversion = (price) => (price / 100.0).toFixed(2)
 
 const Listing1 = () => {
   const id = 2
-  const { loading, error, listing } = useQuery(['listing', { id }], fetchListing)
-  if (loading) {
+  const listing = useQuery(['listing', { id }], fetchListing)
+  console.log(listing)
+  if (listing.status === 'loading') {
     return <div>loading</div>
   }
+  const { title } = listing.data
+  const { user } = listing.data
+  const { description } = listing.data
+  const { price } = listing.data
+  const category = listing.data.category.name
   return (
     <div style={{ padding: '10px' }}>
       <Container>
@@ -40,16 +49,14 @@ const Listing1 = () => {
             <Image src={me} style={{ height: '400px' }} />
           </Col>
           <Col>
-            <div style={{ fontSize: '30px', padding: '10px' }}>{mockdata.title}</div>
-            <div style={{ fontSize: '20px', padding: '10px' }}>by {mockdata.user}</div>
+            <div style={{ fontSize: '30px', padding: '10px' }}>{title}</div>
+            <div style={{ fontSize: '20px', padding: '10px' }}>by {user}</div>
             <div>Description:</div>
-            <div style={{ padding: '10px' }}>{mockdata.description}</div>
-            <div style={{ padding: '10px' }}>Category: {mockdata.category}</div>
+            <div style={{ padding: '10px' }}>{description}</div>
+            <div style={{ padding: '10px' }}>Category: {category}</div>
           </Col>
           <Col>
-            <div style={{ marginBottom: '10px', fontSize: '3em' }}>
-              ${priceConversion(mockdata.price)}
-            </div>
+            <div style={{ marginBottom: '10px', fontSize: '3em' }}>${priceConversion(price)}</div>
             <Button style={{ backgroundColor: '#BBBB00' }}>Contact seller</Button>
           </Col>
         </Row>
