@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 
 export const getListing = async (req: Request, res: Response) => {
   // make sure required body data is present
-  if (!req.body || !req.body.listingId) {
+  if (!req.body || !req.query.listingId) {
     res.status(400)
     return res.send({
       listing: null,
@@ -13,7 +13,7 @@ export const getListing = async (req: Request, res: Response) => {
 
   let listing: Listing
   try {
-    listing = await Listing.findOne(req.body.listingId)
+    listing = await Listing.findOne(parseInt(req.query.listingId as string))
   } catch (error) {
     res.status(500)
     return res.send({
