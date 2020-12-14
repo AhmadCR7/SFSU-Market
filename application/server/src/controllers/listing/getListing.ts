@@ -3,17 +3,17 @@ import { Request, Response } from 'express'
 
 export const getListing = async (req: Request, res: Response) => {
   // make sure required body data is present
-  if (!req.body || !req.body.listingId) {
+  if (!req.body || !req.query.listingId) {
     res.status(400)
     return res.send({
       listing: null,
-      errors: [{ title: 'get listing', message: 'incorrect parameters given' }],
+      errors: [{ title: 'get listing', message: String(req.query.listingId) }],
     })
   }
 
   let listing: Listing
   try {
-    listing = await Listing.findOne(req.body.listingId)
+    listing = await Listing.findOne(parseInt(req.query.listingId as string))
   } catch (error) {
     res.status(500)
     return res.send({
