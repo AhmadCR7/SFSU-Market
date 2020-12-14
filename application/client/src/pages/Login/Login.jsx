@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
-
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import './login.css'
 import axios from 'axios'
 
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm({ criteriaMode: 'all' })
+  const history = useHistory()
 
   const onSubmit = (data) => {
     console.log(data)
@@ -13,7 +14,12 @@ const LoginForm = () => {
       method: 'post',
       url: '/api/auth/loginUser',
       data,
-    }).then((res) => console.log(res))
+    }).then((res) => {
+      console.log(res)
+      history.push({
+        pathname: '/',
+      })
+    })
   }
 
   return (
