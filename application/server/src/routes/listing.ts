@@ -16,6 +16,6 @@ router.post('/createListing', isLoggedInUser, createListing)
 router.post('/verifyListing', isAdmin, verifyListing)
 router.post('/deleteListing', isAdmin, deleteListing)
 router.get('/getListing', getListing)
-router.post('/uploadImages', uploadImages)
+router.post('/uploadImages', isLoggedInUser, uploadImages)
 
 export default router

@@ -23,3 +23,9 @@ code {
   max-width: 1280px;
   gap: 1rem;
 }
+
+.uploadPictureContainer {
+  width: 20% !important;
+  max-width: 200px !important;
+  margin: 10px !important;
+}

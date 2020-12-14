@@ -11,10 +11,10 @@ const resizeFile = (file) =>
   new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
-      300,
-      300,
+      500,
+      500,
       'JPEG',
-      50,
+      100,
       0,
       (uri) => {
         resolve(uri)
@@ -23,41 +23,49 @@ const resizeFile = (file) =>
     )
   })
 
-export const UploadImages = () => {
-  const [images, setImages] = useState()
-  const [images64, setImages64] = useState([])
-  const { register, handleSubmit, errors } = useForm({ criteriaMode: 'all' })
+export const UploadImages = ({ images64, setImages64, setTooManyError }) => {
+  const { register, handleSubmit, errors, setValue } = useForm({ criteriaMode: 'all' })
 
   const onDrop = async (imagesDrop) => {
+    setTooManyError('')
+    if (imagesDrop.length > 3) {
+      setTooManyError('You are trying to upload too many photos. Maximum is 3.')
+    }
     imagesDrop.forEach(async (img) => {
       const resized = await resizeFile(img)
       setImages64((i) => [...i, resized])
     })
   }
 
-  const onSubmit = () => {
-    axios.post('/api/listing/uploadImages', {
+  const onSubmit = async () => {
+    const res = await axios.post('/api/listing/uploadImages', {
       images: images64,
     })
+    console.log(res)
   }
 
-  console.log(images64)
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <ImageUploader
-        ref={register}
-        withIcon
-        buttonText="Choose images"
-        withPreview
-        onChange={onDrop}
-        imgExtension={['.jpg', '.jpeg', '.png', '.gif']}
-        maxFileSize={5000000} // 5 mb max
-      />
-      {images64.map((i) => (
-        <img height={100} src={i} alt="preview" />
-      ))}
-      <button type="submit">Submit</button>
-    </form>
+    <ImageUploader
+      ref={register}
+      withIcon
+      buttonText="Choose images"
+      withPreview
+      style={{
+        maxHeight: '300px',
+        width: '90%',
+        margin: '0 auto',
+        display: 'block',
+        textAlign: 'center',
+      }}
+      fileContainerStyle={{
+        border: 'none',
+        boxShadow: 'none',
+      }}
+      name="imageUpload"
+      label="Max file size: 3mb, Accepted extensions: [.jpg, .jpeg, .png, .gif]"
+      onChange={onDrop}
+      imgExtension={['.jpg', '.jpeg', '.png', '.gif']}
+      maxFileSize={3000000} // 3 mb max
+    />
   )
 }
