@@ -10,7 +10,7 @@ export const getAllCategories = async (req: Request, res: Response) => {
       categories: [],
       errors: [
         {
-          title: 'get categories',
+          field: 'all',
           message: 'error when retrieving categories.',
         },
       ],

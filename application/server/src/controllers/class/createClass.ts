@@ -10,7 +10,7 @@ export const createClass = async (req: Request, res: Response) => {
     res.status(400)
     return res.send({
       listing: null,
-      errors: [{ title: 'create class', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
 
@@ -29,7 +29,7 @@ export const createClass = async (req: Request, res: Response) => {
     res.status(500)
     return res.send({
       listing: null,
-      errors: [{ title: 'create class', message: 'error creating class' }],
+      errors: [{ field: 'all', message: 'error creating class' }],
     })
   }
 

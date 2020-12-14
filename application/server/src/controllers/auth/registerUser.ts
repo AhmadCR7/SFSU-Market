@@ -16,19 +16,19 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
     res.status(400)
     return res.send({
       user: null,
-      errors: [{ title: 'register user', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
   const { email, password } = req.body
 
   // make sure sfsu email is being used
-  if (!email.includes('@sfsu.edu') || !email.includes('@mail.sfsu.edu')) {
+  if (!email.includes('@sfsu.edu') && !email.includes('@mail.sfsu.edu')) {
     res.status(400)
     return res.send({
       user: null,
       errors: [
         {
-          title: 'register user',
+          field: 'email',
           message: 'user must be an sfsu student',
         },
       ],
@@ -55,7 +55,7 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
         user: null,
         errors: [
           {
-            title: 'register user',
+            field: 'email',
             message: 'that user already exists',
           },
         ],
@@ -67,7 +67,7 @@ export const registerUser = async (req: CustomRequest, res: Response) => {
       user: null,
       errors: [
         {
-          title: 'register user',
+          field: 'all',
           message: 'error when creating new user: error given = ' + e.message,
         },
       ],
