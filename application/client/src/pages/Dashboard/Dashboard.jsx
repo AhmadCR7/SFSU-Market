@@ -3,8 +3,10 @@ import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import MyListings from '../../component/MyListings/MyListings'
 import Messages from '../../component/Messages/Messages'
-import CreateMessage from '../../component/Messages/CreateMessage'
+// Dashboard created for active users to view listings and messages
+// Created by: Lauren Luke
 
+// Basic styling
 const PageStyled = styled.div`
   padding: 20px;
 `
@@ -21,20 +23,19 @@ const MessageContainer = styled.div`
 `
 const Dashboard = () => {
   const [value, setValue] = useState('MyListings')
-
+  // Key components of Dashbaord page
   const components = {
     MyListings,
     Messages,
-    CreateMessage,
   }
   const PageToRender = components[value]
-
+  // Buttons on the Dashboard page
   return (
     <PageStyled>
+      <h1>Hello, Monica!</h1>
       <ButtonsContainer>
         <Button onClick={() => setValue('MyListings')}>My Listings</Button>
         <Button onClick={() => setValue('Messages')}>My Messages</Button>
-        <Button onClick={() => setValue('CreateMessage')}>Create Message</Button>
       </ButtonsContainer>
       <MessageContainer>
         <PageToRender />

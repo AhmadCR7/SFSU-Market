@@ -4,13 +4,16 @@ import Alert from 'react-bootstrap/Alert'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 
+// Messages created for user to be able to view and delete personal messages
+// Created by: Lauren Luke
+
+// Basic styling
 const PageStyled = styled.div`
   padding: 20px;
 `
 
 const Messages = () => {
   const [visible, setVisible] = useState(true)
-
   if (visible) {
     return (
       <PageStyled>
