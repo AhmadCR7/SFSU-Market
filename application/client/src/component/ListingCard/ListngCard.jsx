@@ -38,7 +38,9 @@ const ListingCard = ({
         <Card.Title>{title}</Card.Title>
         <Card.Text>{displayDescription}</Card.Text>
         <Card.Text>{dollars}</Card.Text>
-        <Button variant="primary">View Post</Button>
+        <Button id="linkbutton" variant="primary" href={`../../../listing1?id=${id}`}>
+          View Post
+        </Button>
       </Card.Body>
     </Card>
   )
