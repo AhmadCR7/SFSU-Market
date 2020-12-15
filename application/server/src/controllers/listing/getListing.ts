@@ -13,7 +13,9 @@ export const getListing = async (req: Request, res: Response) => {
 
   let listing: Listing
   try {
-    listing = await Listing.findOne(parseInt(req.query.listingId as string))
+    listing = await Listing.findOne(parseInt(req.query.listingId as string), {
+      relations: ['poster'],
+    })
   } catch (error) {
     res.status(500)
     return res.send({
@@ -28,7 +30,13 @@ export const getListing = async (req: Request, res: Response) => {
   }
 
   res.send({
-    listing: listing,
+    listing: {
+      ...listing,
+      poster: {
+        ...listing.poster,
+        password: null,
+      },
+    },
     errors: [],
   })
 }

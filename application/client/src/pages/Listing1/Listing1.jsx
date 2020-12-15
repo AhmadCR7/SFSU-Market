@@ -6,6 +6,7 @@ import { Row, Col, Container, Image, Button } from 'react-bootstrap'
 
 // My imports
 import me from '../../images/Nick.PNG'
+import placeholder from '../../images/placeholder-image.png'
 
 const fetchListing = async (key, { lId }) => {
   const url = String(document.URL)
@@ -20,10 +21,6 @@ const fetchListing = async (key, { lId }) => {
   return res.data.listing
 }
 
-const fetchUser = async (key, { uId }) => {
-  // Goes into database and returns the username associated with the userid passed in.
-}
-
 const priceConversion = (price) => (price / 100.0).toFixed(2)
 const Listing1 = () => {
   const id = 2
@@ -32,24 +29,24 @@ const Listing1 = () => {
   if (listing.status === 'loading') {
     return <div>loading</div>
   }
-  const { title } = listing.data
-  const { user } = listing.data
-  const { description } = listing.data
-  const { price } = listing.data
-  const category = listing.data.category.name
+  const { title, user, description, price, poster, listingImages, category } = listing.data
+
+  const displayUrl = listingImages.length > 0 ? listingImages[0].url : placeholder
+
   return (
     <div style={{ padding: '10px' }}>
       <Container>
         <Row>
           <Col>
-            <Image src={me} style={{ height: '400px' }} />
+            <Image src={displayUrl} style={{ height: '400px' }} />
           </Col>
           <Col>
             <div style={{ fontSize: '30px', padding: '10px' }}>{title}</div>
             <div style={{ fontSize: '20px', padding: '10px' }}>by {user}</div>
             <div>Description:</div>
             <div style={{ padding: '10px' }}>{description}</div>
-            <div style={{ padding: '10px' }}>Category: {category}</div>
+            <div style={{ padding: '10px' }}>Category: {category.name}</div>
+            <div style={{ padding: '10px' }}>Poster: {poster.email}</div>
           </Col>
           <Col>
             <div style={{ marginBottom: '10px', fontSize: '3em' }}>${priceConversion(price)}</div>

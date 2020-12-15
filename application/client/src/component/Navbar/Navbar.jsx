@@ -9,7 +9,6 @@ import logo from '../../images/logo.png'
 
 const fetchCurrentUser = async () => {
   const res = await axios('/api/auth/getCurrentUser')
-  console.log(res)
   return res.data
 }
 
