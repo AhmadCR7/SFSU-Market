@@ -15,7 +15,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
     res.status(400)
     return res.send({
       listing: null,
-      errors: [{ title: 'create listing', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
 
@@ -24,15 +24,14 @@ export const createListing = async (req: CustomRequest, res: Response) => {
   // get currently logged in user
   let user: User
   try {
-    // user = await User.findOne(parseInt(req.session.userId))
-    user = await User.findOne(1)
+    user = await User.findOne(parseInt(req.session.userId))
   } catch (e) {
     res.status(500)
     return res.send({
       message: null,
       errors: [
         {
-          title: 'create listing',
+          field: 'user',
           message: 'error finding user.',
         },
       ],
@@ -59,7 +58,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
           listing: null,
           errors: [
             {
-              title: 'create listing',
+              field: 'class',
               message: 'could not find an associated class for class with number ' + classNumber,
             },
           ],
@@ -72,7 +71,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
         listing: null,
         errors: [
           {
-            title: 'create listing',
+            field: 'class',
             message: 'error when finding class',
           },
         ],
@@ -91,7 +90,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
         listing: null,
         errors: [
           {
-            title: 'create listing',
+            field: 'category',
             message: 'could not find an associated category for ' + category,
           },
         ],
@@ -104,7 +103,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
       listing: null,
       errors: [
         {
-          title: 'create listing',
+          field: 'category',
           message: 'error when finding category',
         },
       ],
@@ -132,7 +131,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
       listing: null,
       errors: [
         {
-          title: 'create listing',
+          field: 'all',
           message: 'error when creating new listing: error given = ' + e.message,
         },
       ],

@@ -12,7 +12,7 @@ export const loginUser = async (req: CustomRequest, res: Response) => {
     res.status(400)
     return res.send({
       user: null,
-      errors: [{ title: 'register user', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
   const { email, password } = req.body
@@ -28,13 +28,13 @@ export const loginUser = async (req: CustomRequest, res: Response) => {
       res.status(400)
       return res.send({
         user: null,
-        errors: [{ title: 'login user', message: 'user does not exist' }],
+        errors: [{ field: 'email', message: 'user does not exist' }],
       })
     }
     res.status(500)
     return res.send({
       user: null,
-      errors: [{ title: 'login user', message: 'error logging in' }],
+      errors: [{ field: 'email', message: 'error logging in' }],
     })
   }
 
@@ -46,7 +46,7 @@ export const loginUser = async (req: CustomRequest, res: Response) => {
     res.status(400)
     return res.send({
       user: null,
-      errors: [{ title: 'login user', message: 'incorrect password' }],
+      errors: [{ field: 'password', message: 'incorrect password' }],
     })
   }
 

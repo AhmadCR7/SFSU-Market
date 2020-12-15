@@ -14,7 +14,7 @@ export const getUserMessages = async (req: CustomRequest, res: Response) => {
       messages: [],
       errors: [
         {
-          title: 'get user messages',
+          field: 'all',
           message: 'error getting user.',
         },
       ],
@@ -31,7 +31,7 @@ export const getUserMessages = async (req: CustomRequest, res: Response) => {
       messages: [],
       errors: [
         {
-          title: 'get user messages',
+          field: 'all',
           message: 'error getting messages.',
         },
       ],

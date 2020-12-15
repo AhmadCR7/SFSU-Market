@@ -17,7 +17,7 @@ export const getRecentListings = async (req: Request, res: Response) => {
       listings: [],
       errors: [
         {
-          title: 'get listings',
+          field: 'all',
           message: 'error when retrieving listings.',
         },
       ],

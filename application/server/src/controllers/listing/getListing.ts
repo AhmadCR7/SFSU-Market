@@ -7,7 +7,7 @@ export const getListing = async (req: Request, res: Response) => {
     res.status(400)
     return res.send({
       listing: null,
-      errors: [{ title: 'get listing', message: String(req.query.listingId) }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
 
@@ -20,7 +20,7 @@ export const getListing = async (req: Request, res: Response) => {
       listing: null,
       errors: [
         {
-          title: 'get listings',
+          field: 'all',
           message: 'error when retrieving listings.',
         },
       ],

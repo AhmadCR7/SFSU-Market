@@ -10,7 +10,7 @@ export const getAllClasses = async (req: Request, res: Response) => {
       classes: [],
       errors: [
         {
-          title: 'get classes',
+          field: 'all',
           message: 'error when retrieving classes.',
         },
       ],

@@ -10,7 +10,7 @@ export const createCategory = async (req: Request, res: Response) => {
     res.status(400)
     return res.send({
       listing: null,
-      errors: [{ title: 'create category', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
 
@@ -27,7 +27,7 @@ export const createCategory = async (req: Request, res: Response) => {
     res.status(500)
     return res.send({
       listing: null,
-      errors: [{ title: 'create category', message: 'error creating category' }],
+      errors: [{ field: 'all', message: 'error creating category' }],
     })
   }
 
