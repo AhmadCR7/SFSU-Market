@@ -8,27 +8,23 @@ import { Row, Col, Container, Image, Button } from 'react-bootstrap'
 import me from '../../images/Nick.PNG'
 
 const fetchListing = async (key, { lId }) => {
+  const url = String(document.URL)
+  const idStr = url.split('=')
+  const id = parseInt(idStr[1])
   const res = await Axios.get('/api/listing/getListing', {
     params: {
-      listingId: 11,
+      listingId: id,
     },
   })
   // console.log(res.data.listing)
   return res.data.listing
 }
 
-const mockdata = {
-  title: 'French President Nicolas Sarkozy',
-  description:
-    'In 1989, French President Nicolas Sarkozy rose and fell again. This was because he woke up and then went back to bed.',
-  category: 'Appliances',
-  price: 59940,
-  user: 'blargh257',
-  imageSrc: '../../images/Nick.PNG',
+const fetchUser = async (key, { uId }) => {
+  // Goes into database and returns the username associated with the userid passed in.
 }
 
 const priceConversion = (price) => (price / 100.0).toFixed(2)
-
 const Listing1 = () => {
   const id = 2
   const listing = useQuery(['listing', { id }], fetchListing)
