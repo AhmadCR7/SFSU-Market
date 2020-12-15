@@ -1,6 +1,7 @@
 import express from 'express'
 import { createListing } from '../controllers/listing/createListing'
 import { deleteListing } from '../controllers/listing/deleteListing'
+import { getAllUnverifiedListings } from '../controllers/listing/getAllUnverifiedListings'
 import { getListing } from '../controllers/listing/getListing'
 import { getRecentListings } from '../controllers/listing/getRecentListings'
 const router = express.Router()
@@ -16,6 +17,7 @@ router.post('/createListing', isLoggedInUser, createListing)
 router.post('/verifyListing', isAdmin, verifyListing)
 router.post('/deleteListing', isAdmin, deleteListing)
 router.get('/getListing', getListing)
+router.get('/getAllUnverifiedListings', isAdmin, getAllUnverifiedListings)
 router.post('/uploadImages', isLoggedInUser, uploadImages)
 
 export default router
