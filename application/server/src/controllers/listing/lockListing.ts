@@ -11,7 +11,7 @@ export const lockListing = async (req: Request, res: Response) => {
     res.status(400)
     return res.send({
       listing: null,
-      errors: [{ title: 'lock listing', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
   const { listingId } = req.body
@@ -26,7 +26,7 @@ export const lockListing = async (req: Request, res: Response) => {
     res.status(500)
     return res.send({
       listing: null,
-      errors: [{ title: 'lock listing', message: 'error locking listing' }],
+      errors: [{ field: 'all', message: 'error locking listing' }],
     })
   }
 

@@ -19,8 +19,6 @@ const Homepage = () => {
     return <div>{error}</div>
   }
 
-  console.log(data)
-
   return (
     <div style={{ padding: '2rem' }}>
       <h2 style={{ textAlign: 'center' }}>Recent Listings</h2>

@@ -6,9 +6,10 @@ dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 import express from 'express'
 import path from 'path'
 import cors from 'cors'
-import AWS from 'aws-sdk'
 import session, { SessionOptions } from 'express-session'
 import bodyParser from 'body-parser'
+import fileUpload from 'express-fileupload'
+import multer from 'multer'
 
 // my imports
 import indexRouter from './routes/index'
@@ -34,14 +35,16 @@ const main = async () => {
     })
   )
 
-  // ~ required middlewares
-  // parse application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({ extended: false }))
-  // parse application/json
-  app.use(bodyParser.json())
+  app.use(fileUpload())
 
-  // ~ AWS setup
-  const s3 = new AWS.S3({ apiVersion: '2006-03-01' })
+  // ~ required middlewares
+  // parse application/json
+  app.use(bodyParser.json({ limit: 1000000 }))
+  app.use(bodyParser.urlencoded({ extended: true }))
+
+  // parse formData
+  const upload = multer()
+  app.use(upload.array('images', 5))
 
   // ~ create connection to DB
   createNewConnection()

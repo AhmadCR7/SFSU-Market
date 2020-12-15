@@ -15,9 +15,11 @@ export const createListing = async (req: CustomRequest, res: Response) => {
     res.status(400)
     return res.send({
       listing: null,
-      errors: [{ title: 'create listing', message: 'incorrect parameters given' }],
+      errors: [{ field: 'all', message: 'incorrect parameters given' }],
     })
   }
+
+  console.log(req.body)
 
   // get currently logged in user
   let user: User
@@ -29,7 +31,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
       message: null,
       errors: [
         {
-          title: 'create listing',
+          field: 'user',
           message: 'error finding user.',
         },
       ],
@@ -37,18 +39,13 @@ export const createListing = async (req: CustomRequest, res: Response) => {
   }
 
   // retrieve all data from body
-  const { title, description, price, isbn, category, classNumber, listingImageIds } = req.body
-
-  // TODO retrieve images from database if any ids were provided
-  let linkingImages: ListingImage[]
-  if (listingImageIds) {
-  }
+  const { title, description, price, isbn, category, className, images } = req.body
 
   let linkingClass: Class
-  if (classNumber) {
+  if (className) {
     // get class from database to link with listing
     try {
-      linkingClass = await Class.findOne({ where: { number: classNumber } })
+      linkingClass = await Class.findOne({ where: { name: className } })
       // incorrect class was supplied
       if (!linkingClass) {
         res.status(400)
@@ -56,8 +53,8 @@ export const createListing = async (req: CustomRequest, res: Response) => {
           listing: null,
           errors: [
             {
-              title: 'create listing',
-              message: 'could not find an associated class for class with number ' + classNumber,
+              field: 'class',
+              message: 'could not find an associated class for class with name ' + className,
             },
           ],
         })
@@ -69,7 +66,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
         listing: null,
         errors: [
           {
-            title: 'create listing',
+            field: 'class',
             message: 'error when finding class',
           },
         ],
@@ -88,7 +85,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
         listing: null,
         errors: [
           {
-            title: 'create listing',
+            field: 'category',
             message: 'could not find an associated category for ' + category,
           },
         ],
@@ -101,7 +98,7 @@ export const createListing = async (req: CustomRequest, res: Response) => {
       listing: null,
       errors: [
         {
-          title: 'create listing',
+          field: 'category',
           message: 'error when finding category',
         },
       ],
@@ -117,9 +114,10 @@ export const createListing = async (req: CustomRequest, res: Response) => {
     newListing.description = description
     newListing.price = price
     newListing.isbn = isbn
+    newListing.locked = false
+    newListing.verified = false
     newListing.category = linkingCategory
     newListing.class = linkingClass
-    newListing.listingImages = linkingImages
     await connection.manager.save(newListing)
   } catch (e) {
     res.status(500)
@@ -127,11 +125,36 @@ export const createListing = async (req: CustomRequest, res: Response) => {
       listing: null,
       errors: [
         {
-          title: 'create listing',
+          field: 'all',
           message: 'error when creating new listing: error given = ' + e.message,
         },
       ],
     })
+  }
+
+  // create images in database so they can be added to listing
+  if (images) {
+    try {
+      images.forEach(async (img) => {
+        const newImage = new ListingImage()
+        newImage.url = img.url
+        newImage.name = img.name
+        newImage.listing = newListing
+        connection.manager.save(newImage)
+      })
+    } catch (e) {
+      console.error(e)
+      res.status(500)
+      return res.send({
+        listing: null,
+        errors: [
+          {
+            field: 'images',
+            message: 'error when creating images in database',
+          },
+        ],
+      })
+    }
   }
 
   res.send({

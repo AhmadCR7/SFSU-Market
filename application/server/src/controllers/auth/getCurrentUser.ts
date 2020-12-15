@@ -25,7 +25,7 @@ export const getCurrentUser = async (req: CustomRequest, res: Response) => {
     res.status(500)
     return res.send({
       user: null,
-      errors: [{ title: 'get current user', message: 'error getting user.' }],
+      errors: [{ field: 'all', message: 'error getting user.' }],
     })
   }
   // user is logged in so return that users data
