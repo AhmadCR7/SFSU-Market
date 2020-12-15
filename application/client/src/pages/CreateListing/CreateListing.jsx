@@ -1,35 +1,58 @@
 /* eslint-disable react/button-has-type */
-import Axios from 'axios'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
+import { useQuery } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { UploadImages } from '../../component/UploadImages/UploadImages'
 
+const fetchCategories = async () => {
+  const res = await axios('/api/category/getAllCategories')
+  return res.data.categories
+}
+const fetchClasses = async () => {
+  const res = await axios('/api/class/getAllClasses')
+  return res.data.classes
+}
+
 const CreateListing = () => {
-  const { register, handleSubmit, errors } = useForm({ criteriaMode: 'all' })
+  const { register, handleSubmit, errors, getValues } = useForm({ criteriaMode: 'all' })
   const [loading, setLoading] = useState(false)
-  const { category, setCategory } = useState('appliances')
+  const [categoryChange, setCategoryChange] = useState(false)
   const [tooManyError, setTooManyError] = useState('')
   const [images64, setImages64] = useState([])
+
+  const {
+    isLoading: isLoadingCategories,
+    error: errorCategories,
+    data: dataCategories = [],
+  } = useQuery('categories', fetchCategories)
+
+  const { isLoading: isLoadingClasses, error: errorClasses, data: dataClasses = [] } = useQuery(
+    'classes',
+    fetchClasses
+  )
+
   const onSubmit = async (data) => {
     setLoading(true)
     console.log(data)
     let imageRes = []
     if (images64) {
-      imageRes = await Axios.post('/api/listing/uploadImages', {
+      imageRes = await axios.post('/api/listing/uploadImages', {
         images: images64,
       })
     }
 
     console.log(imageRes)
-    const listingRes = await Axios.post('/api/listing/createListing', {
+    const listingRes = await axios.post('/api/listing/createListing', {
       ...data,
+      className: data.class,
       images: imageRes.data.images,
     })
     setLoading(false)
   }
 
-  if (loading) {
+  if (loading || isLoadingCategories || isLoadingClasses) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>Loading...</div>
     )
@@ -72,21 +95,43 @@ const CreateListing = () => {
           {errors.description && <p>{errors.description.message}</p>}
         </div>
         <div className="form-group">
-          <label>Category {category}</label>
+          <label>Category</label>
           <Form.Control
             as="select"
             ref={register}
             name="category"
+            onChange={() => setCategoryChange(!categoryChange)}
             className="form-control"
             style={{ width: '70%' }}
           >
-            <option onClick={() => setCategory('appliances')}>appliances</option>
-            <option onClick={() => setCategory('books')}>books</option>
-            <option onClick={() => setCategory('clothing')}>clothing</option>
-            <option onClick={() => setCategory('electronics')}>electronics</option>
-            <option onClick={() => setCategory('services')}>services</option>
+            {dataCategories.map((cat) => (
+              <option key={cat.id}>{cat.name}</option>
+            ))}
           </Form.Control>
         </div>
+        {getValues('category') === 'books' && (
+          <div className="form-group">
+            <label>Isbn</label>
+            <input name="isbn" className="form-control" placeholder="Enter isbn" ref={register} />
+            {errors.isbn && <p>{errors.isbn.message}</p>}
+          </div>
+        )}
+        {getValues('category') === 'books' && (
+          <div className="form-group">
+            <label>Class</label>
+            <Form.Control
+              as="select"
+              ref={register}
+              name="class"
+              className="form-control"
+              style={{ width: '70%' }}
+            >
+              {dataClasses.map((clss) => (
+                <option key={clss.id}>{clss.name}</option>
+              ))}
+            </Form.Control>
+          </div>
+        )}
         <div className="form-group">
           <label>Price</label>
           <input
