@@ -24,6 +24,12 @@ code {
   gap: 1rem;
 }
 
+.grid_column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .uploadPictureContainer {
   width: 20% !important;
   max-width: 200px !important;

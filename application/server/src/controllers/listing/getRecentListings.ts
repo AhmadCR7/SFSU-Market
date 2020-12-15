@@ -9,6 +9,7 @@ export const getRecentListings = async (req: Request, res: Response) => {
     order: {
       createdAt: 'DESC',
     },
+    relations: ['poster'],
   })
 
   if (!listings) {

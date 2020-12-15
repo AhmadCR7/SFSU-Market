@@ -5,7 +5,7 @@ import ListingCard from '../../component/ListingCard/ListngCard'
 
 const fetchRecentListings = async () => {
   const res = await axios('/api/listing/getRecentListings')
-  return res
+  return res.data.listings
 }
 
 const Homepage = () => {
@@ -23,7 +23,7 @@ const Homepage = () => {
     <div style={{ padding: '2rem' }}>
       <h2 style={{ textAlign: 'center' }}>Recent Listings</h2>
       <div className="grid" style={{ margin: '2rem auto' }}>
-        {data.data.listings.map((listing) => (
+        {data.map((listing) => (
           <ListingCard
             key={listing.id}
             categoryName={listing.category.name}
