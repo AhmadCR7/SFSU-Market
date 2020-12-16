@@ -39,7 +39,7 @@ const Listing1 = () => {
       <Container>
         <Row>
           <Col>
-            <Image src={displayUrl} style={{ height: '400px' }} />
+            <Image src={displayUrl} style={{ maxHeight: '100%', maxWidth: '100%' }} />
           </Col>
           <Col>
             <div style={{ fontSize: '30px', padding: '10px' }}>{title}</div>
