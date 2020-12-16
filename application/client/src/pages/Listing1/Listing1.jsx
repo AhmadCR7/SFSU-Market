@@ -10,6 +10,7 @@ import placeholder from '../../images/placeholder-image.png'
 
 const fetchListing = async (key, { lId }) => {
   const url = String(document.URL)
+  console.log(url)
   const idStr = url.split('=')
   const id = parseInt(idStr[1])
   const res = await Axios.get('/api/listing/getListing', {
@@ -38,7 +39,7 @@ const Listing1 = () => {
       <Container>
         <Row>
           <Col>
-            <Image src={displayUrl} style={{ height: '400px' }} />
+            <Image src={displayUrl} style={{ maxHeight: '100%', maxWidth: '100%' }} />
           </Col>
           <Col>
             <div style={{ fontSize: '30px', padding: '10px' }}>{title}</div>
