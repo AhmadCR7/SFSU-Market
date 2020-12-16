@@ -10,6 +10,7 @@ import placeholder from '../../images/placeholder-image.png'
 
 const fetchListing = async (key, { lId }) => {
   const url = String(document.URL)
+  console.log(url)
   const idStr = url.split('=')
   const id = parseInt(idStr[1])
   const res = await Axios.get('/api/listing/getListing', {
