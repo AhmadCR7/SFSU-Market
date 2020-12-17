@@ -7,11 +7,11 @@ const LaurenPage = () => (
     <div className="title-container" />
     <div className="container">
       <div className="col-8">
-        <h2>Hello!</h2>
+        <h3>GitHub Master</h3>
         <p>
-          My name is Lauren Luke and I am a Computer Science major. This is my last year at SFSU and
-          I am on track to graduate spring 2021. An interesting fact about me is I have an identical
-          twin.
+          Hi, My name is Lauren Luke and I am a Computer Science major. This is my last year at SFSU
+          and I am on track to graduate spring 2021. An interesting fact about me is I have an
+          identical twin.
         </p>
       </div>
       <div className="col-2">

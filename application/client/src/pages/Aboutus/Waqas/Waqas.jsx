@@ -7,7 +7,7 @@ const WaqasBio = () => (
     <div className="title-container" />
     <div className="container">
       <div className="col-8">
-        <h2>Hello!</h2>
+        <h3>Front-End Programmer</h3>
         <p>
           My name is Waqas Hassan, I am a senior and plan to graduate Spring 21. I enjoy playing
           soccer and playing Fifa on my free time.

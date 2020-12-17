@@ -1,59 +1,50 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Messages.css'
-import Alert from 'react-bootstrap/Alert'
 import styled from 'styled-components'
-import { Button } from 'react-bootstrap'
+import { useQuery } from 'react-query'
+import axios from 'axios'
+import { Card } from 'react-bootstrap'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
+// Messages created for user to be able to view and delete personal messages
+// Created by: Lauren Luke
+
+const fetchUserMessages = async () => {
+  const res = await axios('/api/message/getUserMessages')
+  return res.data.messages
+}
+
+// Basic styling
 const PageStyled = styled.div`
   padding: 20px;
 `
 
 const Messages = () => {
-  const [visible, setVisible] = useState(true)
+  const { isLoading, error, data = [] } = useQuery('userMessages', fetchUserMessages)
 
-  if (visible) {
-    return (
-      <PageStyled>
-        <Alert onClose={() => setVisible(false)} dismissible>
-          <p className="mb-0">
-            <h4 className="alert-heading"> From User: Lauren </h4>
-          </p>
-          <p>
-            Hi there! I am messaging about the calculus 2 listing. I am very interested in
-            purchasing. Please send me details for payment thanks!
-          </p>
-          <Button variant="primary" type="submit">
-            Reply
-          </Button>
-        </Alert>
-        <Alert onClose={() => setVisible(false)} dismissible>
-          <p className="mb-0">
-            <h4 className="alert-heading"> From User: Steven </h4>
-          </p>
-          <p>
-            Hey! I am looking to purchase your couch I see it is listed for sale. I can come pick it
-            up today. Give me a call (925) 123-4567.
-          </p>
-          <Button variant="primary" type="submit">
-            Reply
-          </Button>
-        </Alert>
-        <Alert onClose={() => setVisible(false)} dismissible>
-          <p className="mb-0">
-            <h4 className="alert-heading"> From User: Nick </h4>
-          </p>
-          <p>
-            I am interested in your tutoring listing. I am looking for some help this week and next
-            week. What times are you available?
-          </p>
-          <Button variant="primary" type="submit">
-            Reply
-          </Button>
-        </Alert>
-      </PageStyled>
-    )
+  if (isLoading) {
+    return <LoadingSpinner />
   }
-  return <></>
+
+  if (data.length === 0) {
+    return <div style={{ textAlign: 'center', marginTop: '2rem' }}>Sorry no messages</div>
+  }
+
+  return (
+    <div className="grid-column">
+      {data.map((message) => (
+        <Card key={message?.id}>
+          <Card.Header style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>From: {message?.sender?.email}</div>
+            <div>Listing: {message?.listing?.title}</div>
+          </Card.Header>
+          <Card.Body>
+            <Card.Text>{message?.body}</Card.Text>
+          </Card.Body>
+        </Card>
+      ))}
+    </div>
+  )
 }
 
 export default Messages

@@ -7,10 +7,10 @@ import {
   BaseEntity,
   OneToMany,
 } from 'typeorm'
+import { Listing } from './Listing'
 import { Message } from './Message'
 
 @Entity()
-// extend allows base sql commands link find() and insert()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
@@ -24,6 +24,12 @@ export class User extends BaseEntity {
   @Column({ unique: true })
   email!: string
 
+  @Column({ type: 'boolean' })
+  admin!: boolean
+
+  @Column({ type: 'boolean' })
+  banned!: boolean
+
   @Column()
   password!: string
 
@@ -32,4 +38,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Message, (message) => message.receiver)
   receivedMessages: Message[]
+
+  @OneToMany(() => Listing, (listing) => listing.poster)
+  listings: Listing[]
 }

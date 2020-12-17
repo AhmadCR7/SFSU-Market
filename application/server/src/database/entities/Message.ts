@@ -5,9 +5,9 @@ import {
   UpdateDateColumn,
   Column,
   BaseEntity,
-  OneToMany,
   ManyToOne,
 } from 'typeorm'
+import { Listing } from './Listing'
 import { User } from './User'
 
 @Entity()
@@ -26,8 +26,13 @@ export class Message extends BaseEntity {
   body!: string
 
   @ManyToOne(() => User, (user) => user.sentMessages, { eager: true })
-  sender: User
+  sender!: User
 
   @ManyToOne(() => User, (user) => user.receivedMessages, { eager: true })
-  receiver: User
+  receiver!: User
+
+  @ManyToOne(() => Listing, (listing) => listing.messages, {
+    onDelete: 'CASCADE',
+  })
+  listing!: Listing
 }

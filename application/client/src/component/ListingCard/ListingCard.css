@@ -1,0 +1,31 @@
+.body-container {
+  display: flex;
+}
+
+.display-image {
+  width: 50%;
+  height: 20rem;
+  padding-right: 50%;
+  background-size: cover !important;
+  background-position: center center !important;
+  margin-right: 1rem;
+  border-radius: 10px;
+  background-repeat: no-repeat !important;
+}
+
+.card-body {
+  width: 100%;
+  text-align: center;
+  margin: auto 0;
+  padding: 0.5rem !important;
+}
+
+@media only screen and (max-width: 500px) {
+  .body-container {
+    flex-direction: column;
+  }
+  .display-image {
+    width: 100%;
+    margin-right: 0;
+  }
+}

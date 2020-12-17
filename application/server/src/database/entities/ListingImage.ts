@@ -28,6 +28,8 @@ export class ListingImage extends BaseEntity {
   @Column()
   url!: string
 
-  @ManyToOne(() => Listing, (listing) => listing.listingImages)
+  @ManyToOne(() => Listing, (listing) => listing.listingImages, {
+    onDelete: 'CASCADE',
+  })
   listing: Listing
 }

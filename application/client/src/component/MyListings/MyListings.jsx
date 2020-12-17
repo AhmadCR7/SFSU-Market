@@ -1,114 +1,54 @@
-import React from 'react'
-import Table from 'react-bootstrap/Table'
 import styled from 'styled-components'
-import { Button } from 'react-bootstrap'
-import laurenImage from '../../images/Lauren.png'
+import React from 'react'
+import { useQuery } from 'react-query'
+import axios from 'axios'
+import ListingCard from '../ListingCard/ListngCard'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
+// My Listings created for users to view personal posted listings
+// Created by: Lauren Luke
+
+// Basic Styling
 const PageStyled = styled.div`
   padding: 50px;
 `
-const ButtonsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  button {
-    margin: 5px;
-    width: 150px;
+
+const fetchUserListings = async () => {
+  const res = await axios('/api/listing/getUserListings')
+  return res.data.listings
+}
+
+// setShow created to control visbility of Message Modal
+const MyListings = () => {
+  const { isLoading, error, data = [] } = useQuery('userListings', fetchUserListings)
+
+  if (isLoading) {
+    return <LoadingSpinner />
   }
-`
+  if (data.length === 0) {
+    return <div style={{ textAlign: 'center', marginTop: '2rem' }}>Sorry no Listings</div>
+  }
 
-const MyListings = () => (
-  <PageStyled>
-    <div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th> </th>
-            <th>Calculus 2 Online Textbook Link</th>
-            <th> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img alt="headshot" className="profile" src={laurenImage} />
-            </td>
-            <td>
-              <h4> Description: </h4>
-              This link has full access to the Calculus 2 textbook. Convenient for online students
-              or students who do most of their schooling remote. Easy purchase process.
-            </td>
-            <td>
-              <h4>$100</h4>
-              <ButtonsContainer>
-                <Button variant="primary" type="send">
-                  Contact Seller
-                </Button>
-              </ButtonsContainer>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th> </th>
-            <th>Couch For Sale</th>
-            <th> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img alt="headshot" className="profile" src={laurenImage} />
-            </td>
-            <td>
-              <h4> Description: </h4>
-              Used couch for sale. Approximately two years old. Black in color. Available for pick
-              up anytime. Not available for shipping.
-            </td>
-            <td>
-              <h4>$300</h4>
-              <ButtonsContainer>
-                <Button variant="primary" type="send">
-                  Contact Seller
-                </Button>
-              </ButtonsContainer>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th> </th>
-            <th>Tutoring Available</th>
-            <th> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img alt="headshot" className="profile" src={laurenImage} />
-            </td>
-            <td>
-              <h4> Description: </h4>
-              Offering tutoring services for two hours a day. Meeting will occur on campus. Math and
-              English subjects only.
-            </td>
-            <td>
-              <h4>$40</h4>
-              <ButtonsContainer>
-                <Button variant="primary" type="send">
-                  Contact Seller
-                </Button>
-              </ButtonsContainer>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
+  return (
+    <div className="grid" style={{ margin: '0 auto' }}>
+      {data.map((listing) => (
+        <ListingCard
+          key={listing.id}
+          categoryName={listing.category.name}
+          className={listing.class && listing.class.name}
+          datePosted={listing.createdAt}
+          id={listing.id}
+          isbn={listing.isbn}
+          listingImages={listing.listingImages}
+          locked={listing.locked}
+          price={listing.price}
+          verified={listing.verified}
+          title={listing.title}
+          description={listing.description}
+          deletable
+        />
+      ))}
     </div>
-  </PageStyled>
-)
-
+  )
+}
 export default MyListings

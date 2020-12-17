@@ -1,12 +1,37 @@
 import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router-dom'
 import './Signup.css'
+import axios from 'axios'
+import { useQueryCache } from 'react-query'
 
 const CreateForm = () => {
-  const { register, handleSubmit, errors, watch } = useForm({ criteriaMode: 'all' })
+  const { register, handleSubmit, errors, watch, setError } = useForm({ criteriaMode: 'all' })
   const password = useRef({})
   password.current = watch('password', '')
-  const onSubmit = (data) => console.log(data)
+  const history = useHistory()
+  const queryCache = useQueryCache()
+  const onSubmit = (data) => {
+    axios({
+      method: 'post',
+      url: '/api/auth/registerUser',
+      data,
+    })
+      .then((res) => {
+        queryCache.refetchQueries('currentUser')
+        history.push({
+          pathname: '/',
+        })
+      })
+      .catch((e) => {
+        if (e.response.data.errors[0]) {
+          setError(e.response.data.errors[0].field, {
+            type: 'manual',
+            message: e.response.data.errors[0].message,
+          })
+        }
+      })
+  }
   return (
     <div className="col-lg-4 offset-lg-4">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -19,10 +44,14 @@ const CreateForm = () => {
             className="form-control"
             placeholder="SFSU email"
             ref={register({
-              required: true,
+              required: 'Enter your SFSU email',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[edu]{2,4}$/i,
+                message: 'Enter a SFSU email',
+              },
             })}
           />
-          {errors?.email?.types?.required && <p>SFSU email required</p>}
+          {errors.email && <p>{errors.email.message}</p>}
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -34,8 +63,8 @@ const CreateForm = () => {
             ref={register({
               required: 'You must specify a password',
               minLength: {
-                value: 8,
-                message: 'Password must have at least 8 characters',
+                value: 6,
+                message: 'Password must have at least 6 characters',
               },
             })}
           />
@@ -52,16 +81,21 @@ const CreateForm = () => {
               validate: (value) => value === password.current || 'The passwords do not match',
             })}
           />
-
           {errors.password_repeat && <p>{errors.password_repeat.message}</p>}
+        </div>
+        <div>
+          <input
+            ref={register({ required: 'Please accept terms and conditions' })}
+            name="terms"
+            type="checkbox"
+          />
+          {errors.terms && <p>{errors.terms.message}</p>}
+          <a href="/"> I agree to the terms and conditions</a>
         </div>
 
         <button type="submit" className="btn btn-primary btn-block">
           Sign Up
         </button>
-        <p className="forgot-password text-right">
-          Already registered <a href="/login">sign in?</a>
-        </p>
       </form>
     </div>
   )

@@ -2,12 +2,13 @@
 import React from 'react'
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import Listing from '../../component/listing/Listing'
 
 // My imports
+import ListingCard from '../../component/ListingCard/ListngCard'
+import LoadingSpinner from '../../component/LoadingSpinner/LoadingSpinner'
 
 const fetchListings = async (key, { category, searchQuery }) => {
-  const res = await axios('/api/listing/getListings', {
+  const res = await axios('/api/listing/searchListings', {
     params: {
       category,
       searchQuery,
@@ -19,27 +20,40 @@ const fetchListings = async (key, { category, searchQuery }) => {
 
 const Listings = ({ location }) => {
   const { category, searchQuery } = location.state
-  const { data, status } = useQuery(['listings', { category, searchQuery }], fetchListings)
+  const { isLoading, error, data } = useQuery(
+    ['listings', { category, searchQuery }],
+    fetchListings
+  )
 
-  if (status === 'loading') {
-    return <div>loading</div>
+  if (isLoading) {
+    return <LoadingSpinner />
   }
 
-  if (status === 'error') {
-    return <div>error</div>
+  if (error) {
+    return <div>{error}</div>
   }
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      {data.map((listing) => (
-        <Listing
-          key={listing.id}
-          title={listing.title}
-          price={listing.price}
-          description={listing.description}
-          imageUrl={listing.listingImages[0].url}
-        />
-      ))}
+    <div className="page">
+      <h2 style={{ textAlign: 'center' }}>Listings</h2>
+      <div className="grid-column">
+        {data.map((listing) => (
+          <ListingCard
+            key={listing.id}
+            categoryName={listing.category.name}
+            className={listing.class && listing.class.name}
+            datePosted={listing.createdAt}
+            id={listing.id}
+            isbn={listing.isbn}
+            listingImages={listing.listingImages}
+            locked={listing.locked}
+            price={listing.price}
+            verified={listing.verified}
+            title={listing.title}
+            description={listing.description}
+          />
+        ))}
+      </div>
     </div>
   )
 }
