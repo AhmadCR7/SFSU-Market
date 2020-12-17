@@ -2,7 +2,11 @@ import { Request, Response } from 'express'
 import { Category } from '../../database/entities/Category'
 
 export const getAllCategories = async (req: Request, res: Response) => {
-  const categories = await Category.find()
+  const categories = await Category.find({
+    order: {
+      createdAt: 'DESC',
+    },
+  })
 
   if (!categories) {
     res.status(500)

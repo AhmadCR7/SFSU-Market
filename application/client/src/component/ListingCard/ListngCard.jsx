@@ -32,13 +32,19 @@ const ListingCard = ({
     currency: 'USD',
   })
 
+  // format date
+  const date = new Date(datePosted)
+  const dateOutput = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+
   const queryCache = useQueryCache()
 
   const handleVerifyListing = async () => {
     const res = await axios.post('/api/listing/verifyListing', {
       listingId: id,
     })
-    queryCache.invalidateQueries(['recentListings', 'unverifiedListings'])
+    // queryCache.invalidateQueries(['recentListings', 'unverifiedListings'])
+    queryCache.refetchQueries('recentListings')
+    queryCache.refetchQueries('unverifiedListings')
   }
 
   const handleBanUser = async () => {
@@ -50,31 +56,56 @@ const ListingCard = ({
     }
   }
 
-  if (description.length > 50) {
-    displayDescription = `${description.slice(0, 50)}...`
+  if (description.length > 100) {
+    displayDescription = `${description.slice(0, 100)}...`
   }
 
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={thumbnailUrl} />
+    <Card
+      style={{
+        width: 'min(50rem, 100%)',
+        margin: '.3rem auto',
+        boxShadow: '2px 3px 6px rgba(0, 0, 0, 0.150)',
+      }}
+    >
+      <Card.Header style={{ textAlign: 'center', fontSize: '1.5rem' }}>{title}</Card.Header>
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>{displayDescription}</Card.Text>
-        <Card.Text>{dollars}</Card.Text>
-        <Button id="linkbutton" variant="primary" href={`../../../listing1?id=${id}`}>
-          View Post
-        </Button>
-        {unverified && (
-          <Button onClick={handleVerifyListing} variant="success">
-            Verify
-          </Button>
-        )}
-        {admin && (
-          <Button onClick={handleBanUser} variant="danger">
-            Ban User
-          </Button>
-        )}
+        <div className="body-container">
+          <div
+            style={{
+              background: `url(${thumbnailUrl})`,
+            }}
+            className="display-image"
+          />
+          <div className="card-body">
+            <Card.Text style={{ textAlign: 'center' }}>{displayDescription}</Card.Text>
+            <Card.Text style={{ fontSize: '2rem', color: '#5db68e' }}>{dollars}</Card.Text>
+            <Card.Text>Posted by: {poster && poster.email}</Card.Text>
+            <div>
+              <Button id="linkbutton" variant="primary" href={`../../../listing1?id=${id}`}>
+                View Listing
+              </Button>
+              {unverified && (
+                <Button
+                  onClick={handleVerifyListing}
+                  variant="success"
+                  style={{ marginTop: '5px' }}
+                >
+                  Verify
+                </Button>
+              )}
+              {admin && (
+                <Button onClick={handleBanUser} variant="danger" style={{ marginTop: '5px' }}>
+                  Ban User
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
       </Card.Body>
+      <Card.Footer style={{ textAlign: 'center', color: 'gray' }}>
+        Date listed: {dateOutput}
+      </Card.Footer>
     </Card>
   )
 }

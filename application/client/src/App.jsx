@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import ReactGA from 'react-ga' // Google Analytics
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
 import Aboutuspage from './pages/Aboutus/Aboutus'
 import Navbar from './component/Navbar/Navbar'
 import Homepage from './pages/Homepage/Homepage'
@@ -12,10 +14,17 @@ import Listing1 from './pages/Listing1/Listing1'
 import CreateListing from './pages/CreateListing/CreateListing'
 
 function App() {
-  console.log('Rendering App')
+  const history = createBrowserHistory()
+
+  // Initialize google analytics page view tracking
+  history.listen((location) => {
+    ReactGA.initialize('G-FJQ9Z8CJEW')
+    ReactGA.set({ page: location.pathname }) // Update the user's current page
+    ReactGA.pageview(location.pathname) // Record a pageview for the given page
+  })
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={history}>
       <div className="App">
         <Navbar />
         <Switch>
