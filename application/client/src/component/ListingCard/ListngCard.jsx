@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Card, Button } from 'react-bootstrap'
 import axios from 'axios'
-import { useQueryCache } from 'react-query'
+import { useQuery, useQueryCache } from 'react-query'
 
 // My imports
 import './ListingCard.css'
@@ -23,6 +23,7 @@ const ListingCard = ({
   unverified,
   admin,
   poster,
+  deletable,
 }) => {
   let dollars = price / 100
   let displayDescription = description
@@ -56,6 +57,16 @@ const ListingCard = ({
     }
   }
 
+  const handleDeleteListing = async () => {
+    const res = await axios.post('/api/listing/deleteListing', {
+      listingId: id,
+    })
+    queryCache.refetchQueries('recentListings')
+    queryCache.refetchQueries('unverifiedListings')
+    queryCache.refetchQueries('listings')
+    queryCache.refetchQueries('userListings')
+  }
+
   if (description.length > 100) {
     displayDescription = `${description.slice(0, 100)}...`
   }
@@ -68,7 +79,18 @@ const ListingCard = ({
         boxShadow: '2px 3px 6px rgba(0, 0, 0, 0.150)',
       }}
     >
-      <Card.Header style={{ textAlign: 'center', fontSize: '1.5rem' }}>{title}</Card.Header>
+      <Card.Header style={{ textAlign: 'center', fontSize: '1.5rem', position: 'relative' }}>
+        {title}
+        {deletable && (
+          <Button
+            onClick={handleDeleteListing}
+            variant="danger"
+            style={{ position: 'absolute', right: '10px' }}
+          >
+            Delete
+          </Button>
+        )}
+      </Card.Header>
       <Card.Body>
         <div className="body-container">
           <div
@@ -81,7 +103,7 @@ const ListingCard = ({
             <Card.Text style={{ textAlign: 'center' }}>{displayDescription}</Card.Text>
             <Card.Text style={{ fontSize: '2rem', color: '#5db68e' }}>{dollars}</Card.Text>
             <Card.Text>Posted by: {poster && poster.email}</Card.Text>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <Button id="linkbutton" variant="primary" href={`../../../listing1?id=${id}`}>
                 View Listing
               </Button>

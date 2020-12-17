@@ -3,21 +3,22 @@ import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import './Signup.css'
 import axios from 'axios'
+import { useQueryCache } from 'react-query'
 
 const CreateForm = () => {
   const { register, handleSubmit, errors, watch, setError } = useForm({ criteriaMode: 'all' })
   const password = useRef({})
   password.current = watch('password', '')
   const history = useHistory()
+  const queryCache = useQueryCache()
   const onSubmit = (data) => {
-    console.log(data)
     axios({
       method: 'post',
       url: '/api/auth/registerUser',
       data,
     })
       .then((res) => {
-        console.log(res)
+        queryCache.refetchQueries('currentUser')
         history.push({
           pathname: '/',
         })
@@ -62,8 +63,8 @@ const CreateForm = () => {
             ref={register({
               required: 'You must specify a password',
               minLength: {
-                value: 8,
-                message: 'Password must have at least 8 characters',
+                value: 6,
+                message: 'Password must have at least 6 characters',
               },
             })}
           />

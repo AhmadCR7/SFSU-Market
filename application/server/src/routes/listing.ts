@@ -5,6 +5,7 @@ import { getAllUnverifiedListings } from '../controllers/listing/getAllUnverifie
 import { getListing } from '../controllers/listing/getListing'
 import { getRecentListings } from '../controllers/listing/getRecentListings'
 import { getUserListings } from '../controllers/listing/getUserListings'
+import { lockListing } from '../controllers/listing/lockListing'
 const router = express.Router()
 import { searchListings } from '../controllers/listing/searchListings'
 import { uploadImages } from '../controllers/listing/uploadImages'
@@ -16,7 +17,8 @@ router.get('/searchListings', searchListings)
 router.get('/getRecentListings', getRecentListings)
 router.post('/createListing', isLoggedInUser, createListing)
 router.post('/verifyListing', isAdmin, verifyListing)
-router.post('/deleteListing', isAdmin, deleteListing)
+router.post('/deleteListing', isLoggedInUser, deleteListing)
+router.post('/lockListing', isAdmin, lockListing)
 router.get('/getListing', getListing)
 router.get('/getUserListings', isLoggedInUser, getUserListings)
 router.get('/getAllUnverifiedListings', isAdmin, getAllUnverifiedListings)

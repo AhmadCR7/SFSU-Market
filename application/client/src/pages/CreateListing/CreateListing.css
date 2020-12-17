@@ -1,0 +1,10 @@
+.create-listing {
+  width: 50%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 640px) {
+  .create-listing {
+    width: 95%;
+  }
+}

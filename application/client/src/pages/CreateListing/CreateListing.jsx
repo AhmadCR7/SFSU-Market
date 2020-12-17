@@ -2,9 +2,12 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { UploadImages } from '../../component/UploadImages/UploadImages'
+import './CreateListing.css'
+import LoadingSpinner from '../../component/LoadingSpinner/LoadingSpinner'
 
 const fetchCategories = async () => {
   const res = await axios('/api/category/getAllCategories')
@@ -15,12 +18,18 @@ const fetchClasses = async () => {
   return res.data.classes
 }
 
+const fetchCurrentUser = async () => {
+  const res = await axios('/api/auth/getCurrentUser')
+  return res.data
+}
+
 const CreateListing = () => {
   const { register, handleSubmit, errors, getValues } = useForm({ criteriaMode: 'all' })
   const [loading, setLoading] = useState(false)
   const [categoryChange, setCategoryChange] = useState(false)
   const [tooManyError, setTooManyError] = useState('')
   const [images64, setImages64] = useState([])
+  const history = useHistory()
 
   const {
     isLoading: isLoadingCategories,
@@ -32,10 +41,11 @@ const CreateListing = () => {
     'classes',
     fetchClasses
   )
+  const { isLoading, error, data } = useQuery('currentUser', fetchCurrentUser)
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (formData) => {
     setLoading(true)
-    const priceInCents = data.price * 100
+    const priceInCents = formData.price * 100
     let imageRes = []
     if (images64) {
       imageRes = await axios.post('/api/listing/uploadImages', {
@@ -43,25 +53,27 @@ const CreateListing = () => {
       })
     }
 
-    console.log(imageRes)
     const listingRes = await axios.post('/api/listing/createListing', {
-      ...data,
+      ...formData,
       price: priceInCents,
-      className: data.class,
+      className: formData.class,
       images: imageRes.data.images,
     })
     setLoading(false)
+    history.push('/')
   }
 
-  if (loading || isLoadingCategories || isLoadingClasses) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>Loading...</div>
-    )
+  const handleCancel = () => {
+    history.push('/')
+  }
+
+  if (loading || isLoadingCategories || isLoadingClasses || isLoading) {
+    return <LoadingSpinner />
   }
   return (
-    <div className="col-lg-4 offset-lg-4">
+    <div className="page create-listing">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3>Create Listing</h3>
+        <h2 style={{ textAlign: 'center' }}>Create Listing</h2>
         <div className="form-group">
           <label>Title</label>
           <input
@@ -168,14 +180,19 @@ const CreateListing = () => {
           )}
         </div>
         <button
+          disabled={tooManyError || (data && data.user && data.user.banned)}
+          type="submit"
+          className="btn btn-primary btn-block"
+        >
+          Submit for approval
+        </button>
+        <button
           type="reset"
           className="btn btn-primary btn-block"
           style={{ backgroundColor: 'red' }}
+          onClick={handleCancel}
         >
           Cancel
-        </button>
-        <button disabled={tooManyError} type="submit" className="btn btn-primary btn-block">
-          Submit for approval
         </button>
       </form>
     </div>

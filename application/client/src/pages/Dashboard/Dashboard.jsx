@@ -5,17 +5,14 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import MyListings from '../../component/MyListings/MyListings'
 import Messages from '../../component/Messages/Messages'
+import LoadingSpinner from '../../component/LoadingSpinner/LoadingSpinner'
 // Dashboard created for active users to view listings and messages
 // Created by: Lauren Luke
 
-// Basic styling
-const PageStyled = styled.div`
-  padding: 20px;
-`
 const ButtonsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: Left;
+  justify-content: center;
   button {
     margin: 5px;
   }
@@ -41,12 +38,12 @@ const Dashboard = () => {
   const PageToRender = components[value]
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <LoadingSpinner />
   }
 
   return (
-    <PageStyled>
-      <h1>Hello, {data.user.email}</h1>
+    <div className="page">
+      <h2 style={{ textAlign: 'center' }}>Hello, {data.user.email}</h2>
       <ButtonsContainer>
         <Button onClick={() => setValue('MyListings')}>My Listings</Button>
         <Button onClick={() => setValue('Messages')}>My Messages</Button>
@@ -54,7 +51,7 @@ const Dashboard = () => {
       <MessageContainer>
         <PageToRender />
       </MessageContainer>
-    </PageStyled>
+    </div>
   )
 }
 
