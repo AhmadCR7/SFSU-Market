@@ -33,7 +33,11 @@ code {
 .uploadPictureContainer {
   width: 20% !important;
   max-width: 200px !important;
-  margin: 10px !important;
+  margin: 5px !important;
+}
+
+.uploadPictureWrapper {
+  margin-bottom: 20px !important;
 }
 
 .page {

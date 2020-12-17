@@ -3,7 +3,7 @@ import { useQuery, useQueryCache } from 'react-query'
 import axios from 'axios'
 import { Button } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
-import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink, StyledSearch } from './NavbarStyles'
+import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink } from './NavbarStyles'
 import SearchArea from './SearchArea'
 import logo from '../../images/logo.png'
 
@@ -32,7 +32,7 @@ const Navbar = () => {
       </NavLink>
       <SearchArea />
       <Bars />
-      <NavMenu>
+      <NavMenu style={{ fontWeight: '550' }}>
         <NavLink to="/aboutus">About</NavLink>
         {data && data.user && data.user.admin && <NavLink to="/admin-dashboard">Admin</NavLink>}
         {data && data.user && <NavLink to="/dashboard">Dashboard</NavLink>}

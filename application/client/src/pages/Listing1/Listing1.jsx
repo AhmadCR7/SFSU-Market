@@ -81,7 +81,7 @@ const Listing1 = () => {
       <ImageCarousel images={images} />
       <div style={{ margin: '0 auto', maxWidth: '50rem', textAlign: 'center' }}>
         <p style={{ margin: '1rem 0' }}>{description}</p>
-        <p style={{ color: 'darkgreen', fontWeight: '700', fontSize: '1.5rem' }}>
+        <p style={{ color: '#5db68e', fontWeight: '700', fontSize: '1.5rem' }}>
           Asking price: ${dollars}
         </p>
         <p>Category: {category.name}</p>

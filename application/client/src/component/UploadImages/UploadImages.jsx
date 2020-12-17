@@ -53,7 +53,7 @@ export const UploadImages = ({ images64, setImages64, setTooManyError }) => {
       style={{
         maxHeight: '300px',
         width: '90%',
-        margin: '0 auto',
+        margin: '0 auto 20px auto',
         display: 'block',
         textAlign: 'center',
       }}
