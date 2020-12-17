@@ -32,19 +32,27 @@ const Listings = ({ location }) => {
     return <div>{error}</div>
   }
 
-  console.log(data)
-
   return (
-    <div className="grid">
-      {data.map((listing) => (
-        <ListingCard
-          id={listing.id}
-          title={listing.title}
-          price={listing.price}
-          description={listing.description}
-          listingImages={listing.listingImages}
-        />
-      ))}
+    <div className="page">
+      <h2 style={{ textAlign: 'center' }}>Listings</h2>
+      <div className="grid-column">
+        {data.map((listing) => (
+          <ListingCard
+            key={listing.id}
+            categoryName={listing.category.name}
+            className={listing.class && listing.class.name}
+            datePosted={listing.createdAt}
+            id={listing.id}
+            isbn={listing.isbn}
+            listingImages={listing.listingImages}
+            locked={listing.locked}
+            price={listing.price}
+            verified={listing.verified}
+            title={listing.title}
+            description={listing.description}
+          />
+        ))}
+      </div>
     </div>
   )
 }

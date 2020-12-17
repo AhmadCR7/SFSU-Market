@@ -34,47 +34,56 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div style={{ display: 'flex', gap: '1rem' }}>
-      <div className="grid_column">
-        {dataUnverifiedListings.map((listing) => (
-          <ListingCard
-            key={listing.id}
-            categoryName={listing.category.name}
-            className={listing.class && listing.class.name}
-            datePosted={listing.createdAt}
-            id={listing.id}
-            isbn={listing.isbn}
-            listingImages={listing.listingImages}
-            locked={listing.locked}
-            price={listing.price}
-            verified={listing.verified}
-            title={listing.title}
-            description={listing.description}
-            unverified
-            admin
-            poster={listing.poster}
-          />
-        ))}
-      </div>
-      <div className="grid_column">
-        {dataRecentListings.map((listing) => (
-          <ListingCard
-            key={listing.id}
-            categoryName={listing.category.name}
-            className={listing.class && listing.class.name}
-            datePosted={listing.createdAt}
-            id={listing.id}
-            isbn={listing.isbn}
-            listingImages={listing.listingImages}
-            locked={listing.locked}
-            price={listing.price}
-            verified={listing.verified}
-            title={listing.title}
-            description={listing.description}
-            admin
-            poster={listing.poster}
-          />
-        ))}
+    <div className="page">
+      <h2 style={{ textAlign: 'center' }}>Admin Dashboard</h2>
+      <div style={{ display: 'flex', gap: '4rem', justifyContent: 'center' }}>
+        <div>
+          <h3 style={{ textAlign: 'center', color: 'orange' }}>Pending Listings:</h3>
+          <div className="grid-column">
+            {dataUnverifiedListings.map((listing) => (
+              <ListingCard
+                key={listing.id}
+                categoryName={listing.category.name}
+                className={listing.class && listing.class.name}
+                datePosted={listing.createdAt}
+                id={listing.id}
+                isbn={listing.isbn}
+                listingImages={listing.listingImages}
+                locked={listing.locked}
+                price={listing.price}
+                verified={listing.verified}
+                title={listing.title}
+                description={listing.description}
+                unverified
+                admin
+                poster={listing.poster}
+              />
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 style={{ textAlign: 'center', color: 'darkgreen' }}>Approved Listings:</h3>
+          <div className="grid-column">
+            {dataRecentListings.map((listing) => (
+              <ListingCard
+                key={listing.id}
+                categoryName={listing.category.name}
+                className={listing.class && listing.class.name}
+                datePosted={listing.createdAt}
+                id={listing.id}
+                isbn={listing.isbn}
+                listingImages={listing.listingImages}
+                locked={listing.locked}
+                price={listing.price}
+                verified={listing.verified}
+                title={listing.title}
+                description={listing.description}
+                admin
+                poster={listing.poster}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )

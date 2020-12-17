@@ -20,9 +20,9 @@ const Homepage = () => {
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div className="page">
       <h2 style={{ textAlign: 'center' }}>Recent Listings</h2>
-      <div className="grid" style={{ margin: '2rem auto' }}>
+      <div className="grid-column" style={{ margin: '2rem auto', justifyContent: 'center' }}>
         {data.map((listing) => (
           <ListingCard
             key={listing.id}
