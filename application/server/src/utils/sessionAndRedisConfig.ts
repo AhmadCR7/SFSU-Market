@@ -15,9 +15,9 @@ export const sessionConfig = {
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 year cookie 💃
     httpOnly: true, // cannot access cookie via frontend js
-    secure: __prod__, // only works with https
+    secure: false, // only works with https
     sameSite: 'lax', // csrf
-    domain: __prod__ ? '.648-group3.xyz' : undefined,
+    domain: undefined,
   },
   saveUninitialized: false,
   secret: process.env.SESSSION_SECRET as string,
