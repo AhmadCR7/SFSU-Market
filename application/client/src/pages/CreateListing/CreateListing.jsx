@@ -35,7 +35,7 @@ const CreateListing = () => {
 
   const onSubmit = async (data) => {
     setLoading(true)
-    console.log(data)
+    const priceInCents = data.price * 100
     let imageRes = []
     if (images64) {
       imageRes = await axios.post('/api/listing/uploadImages', {
@@ -46,6 +46,7 @@ const CreateListing = () => {
     console.log(imageRes)
     const listingRes = await axios.post('/api/listing/createListing', {
       ...data,
+      price: priceInCents,
       className: data.class,
       images: imageRes.data.images,
     })

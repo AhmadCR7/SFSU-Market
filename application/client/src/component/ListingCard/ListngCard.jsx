@@ -1,6 +1,8 @@
 // 3rd party imports
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Button } from 'react-bootstrap'
+import axios from 'axios'
+import { useQueryCache } from 'react-query'
 
 // My imports
 import './ListingCard.css'
@@ -18,6 +20,9 @@ const ListingCard = ({
   price,
   verified,
   title,
+  unverified,
+  admin,
+  poster,
 }) => {
   let dollars = price / 100
   let displayDescription = description
@@ -26,6 +31,24 @@ const ListingCard = ({
     style: 'currency',
     currency: 'USD',
   })
+
+  const queryCache = useQueryCache()
+
+  const handleVerifyListing = async () => {
+    const res = await axios.post('/api/listing/verifyListing', {
+      listingId: id,
+    })
+    queryCache.invalidateQueries(['recentListings', 'unverifiedListings'])
+  }
+
+  const handleBanUser = async () => {
+    if (poster) {
+      const res = await axios.post('/api/auth/banUser', {
+        userId: poster.id,
+      })
+      console.log(res)
+    }
+  }
 
   if (description.length > 50) {
     displayDescription = `${description.slice(0, 50)}...`
@@ -41,11 +64,19 @@ const ListingCard = ({
         <Button id="linkbutton" variant="primary" href={`../../../listing1?id=${id}`}>
           View Post
         </Button>
+        {unverified && (
+          <Button onClick={handleVerifyListing} variant="success">
+            Verify
+          </Button>
+        )}
+        {admin && (
+          <Button onClick={handleBanUser} variant="danger">
+            Ban User
+          </Button>
+        )}
       </Card.Body>
     </Card>
   )
 }
 
 export default ListingCard
-
-// STYLING
