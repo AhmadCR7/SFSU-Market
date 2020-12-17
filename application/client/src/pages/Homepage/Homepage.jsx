@@ -22,6 +22,12 @@ const Homepage = () => {
 
   return (
     <div className="page">
+      <h1 style={{ textAlign: 'center' }}>
+        Hello and welcome to <span style={{ color: '#463077' }}>SFSU Market!</span>
+      </h1>
+      <p style={{ textAlign: 'center', color: 'gray', fontSize: '1.3rem' }}>
+        Where you can find and post services or goods with your fellow SFSU students.
+      </p>
       <h2 style={{ textAlign: 'center' }}>Recent Listings</h2>
       <div className="grid-column" style={{ margin: '2rem auto', justifyContent: 'center' }}>
         {data.map((listing) => (

@@ -179,21 +179,23 @@ const CreateListing = () => {
             <p style={{ marginTop: '4rem', color: 'red', fontSize: '13px' }}>{tooManyError}</p>
           )}
         </div>
-        <button
-          disabled={tooManyError || (data && data.user && data.user.banned)}
-          type="submit"
-          className="btn btn-primary btn-block"
-        >
-          Submit for approval
-        </button>
-        <button
-          type="reset"
-          className="btn btn-primary btn-block"
-          style={{ backgroundColor: 'red' }}
-          onClick={handleCancel}
-        >
-          Cancel
-        </button>
+        <div style={{ position: 'relative', paddingTop: '60px', width: '40%', margin: '0 auto' }}>
+          <button
+            disabled={tooManyError || (data && data.user && data.user.banned)}
+            type="submit"
+            className="btn btn-primary btn-block"
+          >
+            Submit for approval
+          </button>
+          <button
+            type="reset"
+            className="btn btn-primary btn-block"
+            style={{ backgroundColor: 'red' }}
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   )
