@@ -42,6 +42,8 @@ const main = async () => {
   app.use(bodyParser.json({ limit: 1000000 }))
   app.use(bodyParser.urlencoded({ extended: true }))
 
+  app.set('trust proxy', 1)
+
   // parse formData
   const upload = multer()
   app.use(upload.array('images', 5))
