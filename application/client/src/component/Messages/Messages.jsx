@@ -3,6 +3,8 @@ import './Messages.css'
 import styled from 'styled-components'
 import { useQuery } from 'react-query'
 import axios from 'axios'
+import { Card } from 'react-bootstrap'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
 // Messages created for user to be able to view and delete personal messages
 // Created by: Lauren Luke
@@ -21,13 +23,25 @@ const Messages = () => {
   const { isLoading, error, data = [] } = useQuery('userMessages', fetchUserMessages)
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <LoadingSpinner />
+  }
+
+  if (data.length === 0) {
+    return <div style={{ textAlign: 'center', marginTop: '2rem' }}>Sorry no messages</div>
   }
 
   return (
-    <div>
+    <div className="grid-column">
       {data.map((message) => (
-        <div key={message.id}>{message.body}</div>
+        <Card key={message?.id}>
+          <Card.Header style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>From: {message?.sender?.email}</div>
+            <div>Listing: {message?.listing?.title}</div>
+          </Card.Header>
+          <Card.Body>
+            <Card.Text>{message?.body}</Card.Text>
+          </Card.Body>
+        </Card>
       ))}
     </div>
   )

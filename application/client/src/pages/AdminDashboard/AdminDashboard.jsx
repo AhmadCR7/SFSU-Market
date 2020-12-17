@@ -3,6 +3,8 @@ import { Table, Card, Badge, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 import ListingCard from '../../component/ListingCard/ListngCard'
+import './AdminDashboard.css'
+import LoadingSpinner from '../../component/LoadingSpinner/LoadingSpinner'
 
 const fetchUnverifiedListings = async () => {
   const res = await axios('/api/listing/getAllUnverifiedListings')
@@ -30,14 +32,14 @@ const AdminDashboard = () => {
   const [verifiedClicked, setVerifiedClicked] = useState(false)
 
   if (isLoadingUnverifiedListings || isloadingRecentListings) {
-    return <div>Loading...</div>
+    return <LoadingSpinner />
   }
 
   return (
     <div className="page">
       <h2 style={{ textAlign: 'center' }}>Admin Dashboard</h2>
-      <div style={{ display: 'flex', gap: '4rem', justifyContent: 'center' }}>
-        <div>
+      <div className="columns">
+        <div className="column">
           <h3 style={{ textAlign: 'center', color: 'orange' }}>Pending Listings:</h3>
           <div className="grid-column">
             {dataUnverifiedListings.map((listing) => (
@@ -57,11 +59,12 @@ const AdminDashboard = () => {
                 unverified
                 admin
                 poster={listing.poster}
+                deletable
               />
             ))}
           </div>
         </div>
-        <div>
+        <div className="column">
           <h3 style={{ textAlign: 'center', color: 'darkgreen' }}>Approved Listings:</h3>
           <div className="grid-column">
             {dataRecentListings.map((listing) => (
@@ -80,6 +83,7 @@ const AdminDashboard = () => {
                 description={listing.description}
                 admin
                 poster={listing.poster}
+                deletable
               />
             ))}
           </div>

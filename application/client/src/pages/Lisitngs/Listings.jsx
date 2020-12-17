@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 
 // My imports
 import ListingCard from '../../component/ListingCard/ListngCard'
+import LoadingSpinner from '../../component/LoadingSpinner/LoadingSpinner'
 
 const fetchListings = async (key, { category, searchQuery }) => {
   const res = await axios('/api/listing/searchListings', {
@@ -25,7 +26,7 @@ const Listings = ({ location }) => {
   )
 
   if (isLoading) {
-    return <div>loading</div>
+    return <LoadingSpinner />
   }
 
   if (error) {

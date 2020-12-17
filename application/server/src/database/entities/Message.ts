@@ -31,6 +31,8 @@ export class Message extends BaseEntity {
   @ManyToOne(() => User, (user) => user.receivedMessages, { eager: true })
   receiver!: User
 
-  @ManyToOne(() => Listing, (listing) => listing.messages)
+  @ManyToOne(() => Listing, (listing) => listing.messages, {
+    onDelete: 'CASCADE',
+  })
   listing!: Listing
 }

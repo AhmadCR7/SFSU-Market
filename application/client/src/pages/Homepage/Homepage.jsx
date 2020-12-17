@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import ListingCard from '../../component/ListingCard/ListngCard'
+import LoadingSpinner from '../../component/LoadingSpinner/LoadingSpinner'
 
 const fetchRecentListings = async () => {
   const res = await axios('/api/listing/getRecentListings')
@@ -12,7 +13,7 @@ const Homepage = () => {
   const { isLoading, error, data = [] } = useQuery('recentListings', fetchRecentListings)
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <LoadingSpinner />
   }
 
   if (error) {

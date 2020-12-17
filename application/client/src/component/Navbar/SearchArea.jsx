@@ -2,9 +2,16 @@
 import React, { useState } from 'react'
 import { Form, FormControl, Button, NavDropdown } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
-import { useQueryCache } from 'react-query'
+import { useQuery, useQueryCache } from 'react-query'
+import axios from 'axios'
 
 // My imports
+import './Search.css'
+
+const fetchCategories = async () => {
+  const res = await axios('/api/category/getAllCategories')
+  return res.data.categories
+}
 
 const SearchArea = () => {
   const [category, setCategory] = useState('all')
@@ -23,22 +30,23 @@ const SearchArea = () => {
     })
   }
 
+  const {
+    isLoading: isLoadingCategories,
+    error: errorCategories,
+    data: dataCategories = [],
+  } = useQuery('categories', fetchCategories)
+
   return (
-    <div style={{ display: 'flex' }}>
+    <div className="search">
       <div style={{ margin: 'auto 0' }}>
         <NavDropdown title={<span style={{ color: 'white' }}>{category}</span>}>
           <NavDropdown.Item onClick={() => setCategory('all')}>all</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item onClick={() => setCategory('appliances')}>appliances</NavDropdown.Item>
-
-          <NavDropdown.Item onClick={() => setCategory('books')}>books</NavDropdown.Item>
-
-          <NavDropdown.Item onClick={() => setCategory('clothing')}>clothing</NavDropdown.Item>
-
-          <NavDropdown.Item onClick={() => setCategory('electronics')}>
-            electronics
-          </NavDropdown.Item>
-          <NavDropdown.Item onClick={() => setCategory('services')}>services</NavDropdown.Item>
+          {dataCategories.map((cat) => (
+            <NavDropdown.Item key={cat.id} onClick={() => setCategory(cat.name)}>
+              {cat.name}
+            </NavDropdown.Item>
+          ))}
         </NavDropdown>
       </div>
       <Form
@@ -68,6 +76,7 @@ const SearchArea = () => {
           type="submit"
           disabled={search.length > 40}
           style={{ color: 'white', borderColor: 'white' }}
+          className="button"
         >
           Search
         </Button>

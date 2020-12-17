@@ -3,6 +3,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import ListingCard from '../ListingCard/ListngCard'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
 // My Listings created for users to view personal posted listings
 // Created by: Lauren Luke
@@ -22,7 +23,10 @@ const MyListings = () => {
   const { isLoading, error, data = [] } = useQuery('userListings', fetchUserListings)
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <LoadingSpinner />
+  }
+  if (data.length === 0) {
+    return <div style={{ textAlign: 'center', marginTop: '2rem' }}>Sorry no Listings</div>
   }
 
   return (
@@ -41,6 +45,7 @@ const MyListings = () => {
           verified={listing.verified}
           title={listing.title}
           description={listing.description}
+          deletable
         />
       ))}
     </div>

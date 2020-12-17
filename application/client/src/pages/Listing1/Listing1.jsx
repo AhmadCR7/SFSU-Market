@@ -1,6 +1,6 @@
 // 3rd party imports
 import React, { useState } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryCache } from 'react-query'
 import axios from 'axios'
 import { Button, Modal, Form } from 'react-bootstrap'
 
@@ -21,19 +21,34 @@ const fetchListing = async (key, { lId }) => {
   return res.data.listing
 }
 
+const fetchCurrentUser = async () => {
+  const res = await axios('/api/auth/getCurrentUser')
+  return res.data
+}
+
 const priceConversion = (price) => (price / 100.0).toFixed(2)
 const Listing1 = () => {
   const [message, setMessage] = useState('')
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+  const queryCache = useQueryCache()
   const id = 2
   const listing = useQuery(['listing', { id }], fetchListing)
-  console.log(listing)
+  const { isLoading, error, data } = useQuery('currentUser', fetchCurrentUser)
   if (listing.status === 'loading') {
     return <div>loading</div>
   }
-  const { title, description, price, poster, listingImages, category, id: listingId } = listing.data
+  const {
+    title,
+    description,
+    price,
+    poster,
+    listingImages,
+    category,
+    id: listingId,
+    locked,
+  } = listing.data
 
   const handleSend = async () => {
     const res = await axios.post('/api/message/sendMessage', {
@@ -42,6 +57,13 @@ const Listing1 = () => {
       listingId,
     })
     handleClose()
+  }
+
+  const handleLockListing = async () => {
+    const res = await axios.post('/api/listing/lockListing', {
+      listingId,
+    })
+    queryCache.refetchQueries('listing')
   }
 
   let dollars = priceConversion(price)
@@ -64,7 +86,16 @@ const Listing1 = () => {
         </p>
         <p>Category: {category.name}</p>
         <p>Listing by: {poster.email}</p>
-        <Button onClick={handleShow}>Contact Seller!</Button>
+        <Button disabled={data?.user?.banned || locked} onClick={handleShow}>
+          Contact Seller!
+        </Button>
+        <div style={{ marginTop: '1rem' }}>
+          {data?.user?.admin && (
+            <Button onClick={handleLockListing} variant="danger">
+              Lock listing
+            </Button>
+          )}
+        </div>
       </div>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
