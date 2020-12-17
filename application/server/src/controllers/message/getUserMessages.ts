@@ -24,7 +24,7 @@ export const getUserMessages = async (req: CustomRequest, res: Response) => {
   // get all messages for that user
   let messages: Message[]
   try {
-    messages = await Message.find({ where: { receiver: user } })
+    messages = await Message.find({ where: { receiver: user }, relations: ['listing'] })
   } catch (e) {
     res.status(500)
     return res.send({

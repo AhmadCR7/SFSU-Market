@@ -1,0 +1,17 @@
+.search {
+  display: flex;
+}
+
+.button {
+}
+
+@media screen and (max-width: 880px) {
+  .search {
+    margin-right: 75px;
+    margin-left: -20px;
+  }
+  .button {
+    width: 50%;
+    font-size: 0.7rem !important;
+  }
+}

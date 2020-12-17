@@ -40,7 +40,8 @@ const Aboutuspage = () => {
   const PageToRender = components[member]
 
   return (
-    <PageStyled>
+    <div className="page">
+      <h2 style={{ textAlign: 'center' }}>About The Team</h2>
       <ButtonsContainer>
         <Button onClick={() => setMember('ahmad')}>Ahmad</Button>
         <Button onClick={() => setMember('nick')}>Nicholas</Button>
@@ -51,7 +52,7 @@ const Aboutuspage = () => {
       <MemberContainer>
         <PageToRender />
       </MemberContainer>
-    </PageStyled>
+    </div>
   )
 }
 export default Aboutuspage

@@ -3,10 +3,12 @@ import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import './login.css'
 import axios from 'axios'
+import { useQueryCache } from 'react-query'
 
 const LoginForm = () => {
   const { register, handleSubmit, errors, setError } = useForm({ criteriaMode: 'all' })
   const history = useHistory()
+  const queryCache = useQueryCache()
 
   const onSubmit = (data) => {
     console.log(data)
@@ -16,7 +18,7 @@ const LoginForm = () => {
       data,
     })
       .then((res) => {
-        console.log(res.errors)
+        queryCache.refetchQueries('currentUser')
         history.push({
           pathname: '/',
         })

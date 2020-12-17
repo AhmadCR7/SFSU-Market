@@ -21,7 +21,7 @@ export const deleteListing = async (req: Request, res: Response) => {
     res.status(500)
     return res.send({
       success: false,
-      errors: [{ field: 'all', message: 'error deleteing listing' }],
+      errors: [{ field: 'all', message: 'error deleteing listing: ' + e }],
     })
   }
 
