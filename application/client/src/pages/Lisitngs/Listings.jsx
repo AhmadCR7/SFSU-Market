@@ -38,7 +38,7 @@ const Listings = ({ location }) => {
     <div className="grid">
       {data.map((listing) => (
         <ListingCard
-          key={listing.id}
+          id={listing.id}
           title={listing.title}
           price={listing.price}
           description={listing.description}
