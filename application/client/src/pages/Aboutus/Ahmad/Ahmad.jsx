@@ -7,11 +7,10 @@ const AhmadApp = () => (
     <div className="title-container" />
     <div className="container">
       <div className="col-8">
-        <h2>Hello!</h2>
+        <h3>Front-End Lead</h3>
         <p>
-          My name is Ahmad, I am a Computer Science student at SFSU. This is my last year and I am
-          hoping to gradute this fall. I love working with other CS students. Looking forward to
-          work and learn in CSC 648 class.
+          Hi, My name is Ahmad, I am a Computer Science student at SFSU. I love working with other
+          CS students. Looking forward to work and learn in CSC 648 class.
         </p>
       </div>
       <div className="col-2">

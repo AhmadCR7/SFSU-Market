@@ -7,9 +7,9 @@ const StevenPage = () => (
     <div className="title-container" />
     <div className="container">
       <div className="col-8">
-        <h2>Hello!</h2>
+        <h3>Backend Lead</h3>
         <p>
-          My name is Steven McHenry and I am graduating this Fall. I like webdev stuff{' '}
+          Hello! My name is Steven McHenry and I am graduating this Fall. I like webdev stuff{' '}
           <span role="img" aria-label="cool emoji">
             😎
           </span>

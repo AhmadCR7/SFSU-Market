@@ -12,7 +12,6 @@ import AdminDashboard from './pages/AdminDashboard/AdminDashboard'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Listing1 from './pages/Listing1/Listing1'
 import CreateListing from './pages/CreateListing/CreateListing'
-import Footer from './component/Footer/footer'
 
 function App() {
   const history = createBrowserHistory()
@@ -28,7 +27,6 @@ function App() {
     <BrowserRouter history={history}>
       <div className="App">
         <Navbar />
-        <Footer />
         <Switch>
           <Route path="/" exact component={Homepage} />
           <Route path="/login" exact component={Login} />
