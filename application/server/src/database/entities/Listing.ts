@@ -42,21 +42,24 @@ export class Listing extends BaseEntity {
   @Column()
   price: integer
 
-  @Column()
+  @Column({ nullable: true })
   isbn: string
 
   @ManyToOne(() => Category, (category) => category.listings, { eager: true })
   category!: Category
 
-  @ManyToOne(() => Class, (class_) => class_.listings, { eager: true })
+  @ManyToOne(() => Class, (class_) => class_.listings, { eager: true, nullable: true })
   class: Class
 
   @ManyToOne(() => User, (user) => user.listings)
   poster!: User
 
-  @OneToMany(() => ListingImage, (listingImage) => listingImage.listing, { eager: true })
+  @OneToMany(() => ListingImage, (listingImage) => listingImage.listing, {
+    eager: true,
+    nullable: true,
+  })
   listingImages: ListingImage[]
 
-  @OneToMany(() => Message, (message) => message.listing)
+  @OneToMany(() => Message, (message) => message.listing, { nullable: true })
   messages: Message[]
 }
